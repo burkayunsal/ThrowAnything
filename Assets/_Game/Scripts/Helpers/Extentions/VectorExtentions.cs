@@ -38,9 +38,9 @@ namespace SBF.Extentions.Vector
             return v;
         }
 
-        public static Vector3 WithY(this Vector3 v, Vector3 _v) => WithX(v, _v.y);
+        public static Vector3 WithY(this Vector3 v, Vector3 _v) => WithY(v, _v.y);
 
-        public static Vector3 WithY(this Vector3 v, Transform t) => WithX(v, t.position.y);
+        public static Vector3 WithY(this Vector3 v, Transform t) => WithY(v, t.position.y);
 
         public static Vector3 WithZ(this Vector3 v, float z)
         {
@@ -48,9 +48,9 @@ namespace SBF.Extentions.Vector
             return v;
         }
 
-        public static Vector3 WithZ(this Vector3 v, Vector3 _v) => WithX(v, _v.z);
+        public static Vector3 WithZ(this Vector3 v, Vector3 _v) => WithZ(v, _v.z);
 
-        public static Vector3 WithZ(this Vector3 v, Transform t) => WithX(v, t.position.z);
+        public static Vector3 WithZ(this Vector3 v, Transform t) => WithZ(v, t.position.z);
 
         public static Vector3 With(this Vector3 v, float? x = null, float? y = null, float? z = null)
         {

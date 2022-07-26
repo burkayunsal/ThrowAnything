@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public abstract class Enemy : MonoBehaviour
+public abstract class Enemy : PoolObject
 {
 
     [SerializeField] Rigidbody rb;
@@ -36,6 +36,7 @@ public abstract class Enemy : MonoBehaviour
     {
         transform.SetParent(null);
         //Material gri yap
+        OnDeactivate();
     }
 
     public abstract void InitEnemies();

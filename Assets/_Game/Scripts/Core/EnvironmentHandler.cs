@@ -6,5 +6,5 @@ using SBF.Extentions.Vector;
 
 public class EnvironmentHandler : Singleton<EnvironmentHandler>
 {
-    
+    public Transform ground;
 }

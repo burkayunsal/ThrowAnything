@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Events;
 using SBF.Extentions.Transforms;
 using FluffyUnderware.Curvy.Controllers;
+using FluffyUnderware.Curvy;
 
 public class PlayerController : Singleton<PlayerController>
 {
@@ -33,6 +34,9 @@ public class PlayerController : Singleton<PlayerController>
 
     [SerializeField] SplineController spline;
 
+    private Path crntRoad;
+    public Path GetCurrenctRoad() => crntRoad;
+
     public delegate void OnAnimationChanged(AnimStates _as);
     OnAnimationChanged onAnimChanged;
 
@@ -45,16 +49,17 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Start()
     {
-        SetRoad(spline);
         
         PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.Standart);
         PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.BigBoi);
        
     }
 
-    void SetRoad(SplineController newRoad)
+    public void SetRoad(Path newRoad)
     {
-        spline = newRoad;
+        crntRoad = newRoad;
+        spline.Spline = crntRoad.GetRoad();
+
         spline.AbsolutePosition = 5f;
 
         CurvySplineMoveEvent curvySplineMoveEvent = new CurvySplineMoveEvent();
@@ -62,8 +67,9 @@ public class PlayerController : Singleton<PlayerController>
 
         spline.OnEndReached = curvySplineMoveEvent;
 
-        //Vector3 v = spline.Spline.InterpolateByDistance(5f);
-        //go.transform.position = v;
+        CameraController.I.Init();
+
+        
 
     }
 
@@ -119,20 +125,6 @@ public class PlayerController : Singleton<PlayerController>
         }
     }
 
-    float _spawnPoint;
-    public float SpawnPoint
-    {
-        get => _spawnPoint;
-        set
-        {
-            _spawnPoint = spline.Position;
-        }
-    }
-
-    public void AddEnemy(Enemy enemy, float position)
-    {
-        
-    }
 
     void OnRoadCompleted(CurvySplineMoveEventArgs args)
     {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using MyBox;
 
-public class CameraController : MonoBehaviour
+public class CameraController : Singleton<CameraController>
 {
     [SerializeField] Transform target;
 
@@ -20,10 +20,10 @@ public class CameraController : MonoBehaviour
 
     void Start()
     {
-        Init();
+        //Init();
     }
 
-    void Init()
+    public void Init()
     {
         if (target == null) return;
 

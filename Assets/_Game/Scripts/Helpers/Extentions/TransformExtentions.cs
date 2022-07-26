@@ -15,6 +15,11 @@ namespace SBF.Extentions.Transforms
 
         public static void SlowLookAt(this Transform t, Transform target, float rotateSpeed) => SlowLookAt(t, target.position, rotateSpeed);
 
+        public static Vector3 GetPointAround(this Vector3 v, Vector3 direction, float angle, float distance, bool useLocalForward = true)
+        {
+            return v + Quaternion.Euler(direction.normalized * angle) * (useLocalForward ? v.normalized : Vector3.forward) * distance;
+        }
+
         public static Vector3 GetPointAround(this Transform t, Vector3 direction, float angle, float distance, bool useLocalForward = true)
         {
             return t.position + Quaternion.Euler(direction.normalized * angle) * (useLocalForward ? t.forward : Vector3.forward) * distance;

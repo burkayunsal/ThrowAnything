@@ -1,9 +1,10 @@
 
-public class BarbarianEnemy : Enemy
+
+public class TrollEnemy : Enemy
 {
     public override void InitEnemies()
     {
-        HP = 100;
+        HP = 250;
     }
 
     public override void DieMF()
@@ -26,3 +27,4 @@ public class BarbarianEnemy : Enemy
         OnDeactivate();
     }
 }
+

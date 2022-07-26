@@ -5,10 +5,11 @@ public class LevelHandler : Singleton<LevelHandler>
     [SerializeField] Level testLevel;
     [SerializeField] Transform pool;
     [SerializeField] Level[] allLevels;
+    [SerializeField] Path[] allPaths;
 
-    Level crntLevel;
+    //Level crntLevel;
 
-    public Level GetLevel() => crntLevel;
+    //public Level GetLevel() => crntLevel;
 
     private void Start()
     {
@@ -20,13 +21,19 @@ public class LevelHandler : Singleton<LevelHandler>
 
     public void CreateLevel()
     {
-        if (testLevel == null && allLevels.Length == 0) return;
-
-        int levelID = allLevels.Length >= 1 ? SaveLoadManager.GetLevel() % allLevels.Length : 0;
-
-        crntLevel = Instantiate(testLevel != null ? testLevel : allLevels[levelID], pool);
-
+        int levelID = allPaths.Length >= 1 ? SaveLoadManager.GetLevel() % allPaths.Length : 0;
+        Path crnt = Instantiate(allPaths[levelID], pool);
+        PlayerController.I.SetRoad(crnt);
         GameManager.canStart = true;
+
+
+        //if (testLevel == null && allLevels.Length == 0) return;
+
+        //int levelID = allLevels.Length >= 1 ? SaveLoadManager.GetLevel() % allLevels.Length : 0;
+
+        //crntLevel = Instantiate(testLevel != null ? testLevel : allLevels[levelID], pool);
+
+        //GameManager.canStart = true;
     }
 
 }

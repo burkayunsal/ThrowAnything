@@ -1,27 +1,35 @@
-using System.Collections;
-using System.Collections.Generic;
+
 using UnityEngine;
 
-public enum EnemyTypes
-{
-    Barbarian = 0,
-    Troll = 1,
-    Archer = 2,
-    Swordsman = 3
-}
 
 
 public class EnemySpawner : Singleton<EnemySpawner>
 {
-
     [SerializeField] string[] enemies;
-    [SerializeField] Enemy[] enemyPrefabs;
+    public bool canFollowPlayer = false;
 
-
-    public Enemy SpawnEnemies (EnemyTypes et)
+    public Enemy SpawnEnemies (EnemyTypes enemyType)
     {
-        return Instantiate(enemyPrefabs[(int)et]);
+        Enemy enemy = null;
 
-        PlayerController.I.
+        switch (enemyType)
+        {
+            case EnemyTypes.Barbarian:
+                enemy = PoolManager.I.GetObject<BarbarianEnemy>();
+                break;
+
+            case EnemyTypes.Troll:
+                enemy = PoolManager.I.GetObject<TrollEnemy>();
+                break;
+        }
+
+        return enemy;
+
     }
+}
+
+public enum EnemyTypes
+{
+    Barbarian = 0,
+    Troll = 1
 }
