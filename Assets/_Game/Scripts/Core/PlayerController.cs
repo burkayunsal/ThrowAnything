@@ -10,6 +10,8 @@ public class PlayerController : Singleton<PlayerController>
 {
     List<PlayerMobBase> lsMobs = new List<PlayerMobBase>();
 
+    public bool isInSafeZone = true;
+    
     public enum AnimStates
     {
         Idle,
@@ -71,9 +73,8 @@ public class PlayerController : Singleton<PlayerController>
 
         CameraController.I.Init();
 
-        
-
     }
+ 
 
     public void StartMove()
     {

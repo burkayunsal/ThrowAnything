@@ -19,7 +19,6 @@ public abstract class Enemy : PoolObject
 
     bool canFollow = false;
 
-    Vector3 MovementDirection;
 
     enum AnimationStates
     {
@@ -63,6 +62,15 @@ public abstract class Enemy : PoolObject
 
     }
 
+    public void StopFollow()
+    {
+        if (!isAlive)
+            return;
+       
+        canFollow = false;
+        AnimState = AnimationStates.Idle;
+    }
+    
     public virtual void DieMF()
     {
         transform.SetParent(null);
@@ -82,7 +90,7 @@ public abstract class Enemy : PoolObject
 
     private void Update()
     {
-        if (GameManager.isRunning && EnemySpawner.I.canFollow && canFollow)
+        if (GameManager.isRunning &&  !PlayerController.I.isInSafeZone && canFollow)
         {
             rb.transform.position += rb.transform.forward * (Time.deltaTime * Speed);
             rb.transform.SlowLookAt(PlayerController.I.GetPlayerTransform(), 8f);
@@ -117,4 +125,5 @@ public abstract class Enemy : PoolObject
             AnimState = AnimationStates.Idle;
         }
     }
+
 }

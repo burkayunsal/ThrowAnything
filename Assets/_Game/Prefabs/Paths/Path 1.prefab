@@ -15,8 +15,8 @@ GameObject:
   - component: {fileID: 1099746308759761756}
   - component: {fileID: 8694048798221146603}
   m_Layer: 10
-  m_Name: Exit Trigger
-  m_TagString: Untagged
+  m_Name: ExitSafeZoneTrigger
+  m_TagString: ExitGate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -132,7 +132,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1575238899661225979}
           m_TargetAssemblyTypeName: Path, Assembly-CSharp
-          m_MethodName: PlayerInZone
+          m_MethodName: PlayerInSafeZone
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -140,7 +140,7 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 1
+            m_BoolArgument: 0
           m_CallState: 2
 --- !u!1 &1575238897939288068
 GameObject:
@@ -698,7 +698,7 @@ Transform:
   m_Children:
   - {fileID: 1575238897939288070}
   m_Father: {fileID: 1575238899661225978}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1575238898775882997
 MonoBehaviour:
@@ -1508,8 +1508,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1575238899716683066}
   - {fileID: 1575238898775882998}
+  - {fileID: 1575238899716683066}
   - {fileID: 1575238899962995894}
   - {fileID: 1575238898462761742}
   - {fileID: 1575238898957533908}
@@ -1540,8 +1540,8 @@ MonoBehaviour:
       m_Calls: []
   m_ForceFrequentUpdates: 0
   Modules:
-  - {fileID: 1575238899716683065}
   - {fileID: 1575238898775882997}
+  - {fileID: 1575238899716683065}
   - {fileID: 1575238899962995893}
   - {fileID: 1575238898462761741}
   - {fileID: 1575238898957533899}
@@ -1603,8 +1603,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   road: {fileID: 1575238897939288069}
   spawnEnemyInterval: 5
-  SafeZoneEnterPoint: {fileID: 4556624724560036389}
-  SafeZoneExitPoint: {fileID: 5055675349219303447}
+  safeZoneEnterPoint: {fileID: 4556624724560036389}
+  safeZoneExitPoint: {fileID: 5055675349219303447}
+  spawnRules:
+    rules:
+    - enemyType: 0
+      amount: 30
+    - enemyType: 1
+      amount: 20
 --- !u!1 &1575238899695758811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1721,7 +1727,7 @@ Transform:
   m_Children:
   - {fileID: 1575238899505121897}
   m_Father: {fileID: 1575238899661225978}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1575238899716683065
 MonoBehaviour:
@@ -1947,8 +1953,8 @@ GameObject:
   - component: {fileID: 446883894918895317}
   - component: {fileID: 3232708934468137786}
   m_Layer: 9
-  m_Name: Enter Trigger
-  m_TagString: Untagged
+  m_Name: EnterSafeZoneTrigger
+  m_TagString: EnterGate
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2064,7 +2070,7 @@ MonoBehaviour:
         m_Calls:
         - m_Target: {fileID: 1575238899661225979}
           m_TargetAssemblyTypeName: Path, Assembly-CSharp
-          m_MethodName: PlayerInZone
+          m_MethodName: PlayerInSafeZone
           m_Mode: 6
           m_Arguments:
             m_ObjectArgument: {fileID: 0}
@@ -2072,5 +2078,5 @@ MonoBehaviour:
             m_IntArgument: 0
             m_FloatArgument: 0
             m_StringArgument: 
-            m_BoolArgument: 0
+            m_BoolArgument: 1
           m_CallState: 2

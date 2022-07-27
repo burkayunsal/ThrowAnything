@@ -1,5 +1,9 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
+using Packages.Rider.Editor.UnitTesting;
+using SBF.Extentions.Transforms;
+using SBF.Extentions.Vector;
 using UnityEngine;
 
 public abstract class PlayerMobBase : MonoBehaviour, IShooter
@@ -90,7 +94,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         }
 
         if (lsEnemiesInZone.Count >= 1)
-            StartShooting();""
+            StartShooting();
     }
 
     public virtual void OnEnemyExitRange(Enemy e)
@@ -137,7 +141,10 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
 
         for (int i = 0; i < lsUnavailables.Count; i++)
         {
-            lsEnemiesInZone.RemoveAt(lsUnavailables[i]);
+            if (i<lsEnemiesInZone.Count)
+            {
+                lsEnemiesInZone.RemoveAt(lsUnavailables[i]);
+            }
         }
 
         return e;
@@ -146,6 +153,9 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
 
     public virtual void StartShooting()
     {
+
+        if (PlayerController.I.isInSafeZone) return;
+        
         targetEnemy = FindTargetEnemy();
 
         if (targetEnemy == null) return;
@@ -160,6 +170,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         anim.SetLayerWeight(1, 0f);
         isShooting = false;
         targetEnemy = null;
+      
     }
 
     public abstract void OnStart();
@@ -179,6 +190,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
 
         CheckEnemyIsAvailable();
 
+        LookAtEnemy();
         if(shootTimer >= ShootInterval())
         {
             Fire();
@@ -188,7 +200,6 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
 
     void CheckEnemyIsAvailable()
     {
-    
         if(targetEnemy != null)
         {
             if (!targetEnemy.isAlive)
@@ -198,6 +209,13 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
             }
         }
        
+    }
+
+    void LookAtEnemy()
+    {
+        if(targetEnemy == null || !targetEnemy.isAlive) return;
+       
+        transform.SlowLookAt(targetEnemy.transform.position.WithY(0),8f);
     }
 
     void FindNewEnemyAround()
@@ -219,4 +237,6 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     {
         return 50f;
     }
+    
+    
 }

@@ -8,6 +8,8 @@ TagManager:
   - Effects
   - PlayerParent
   - Enemy
+  - ExitGate
+  - EnterGate
   layers:
   - Default
   - TransparentFX
