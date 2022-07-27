@@ -90,7 +90,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         }
 
         if (lsEnemiesInZone.Count >= 1)
-            StartShooting();
+            StartShooting();""
     }
 
     public virtual void OnEnemyExitRange(Enemy e)
