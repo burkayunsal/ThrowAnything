@@ -4,15 +4,44 @@ using UnityEngine;
 
 public class PlayerEnemyDetector : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] PlayerMobBase parentBase;
+
+    private void OnTriggerEnter(Collider other)
     {
-        
+        if (other.CompareTag("Enemy"))
+            OnEnemyTriggerEnter(other);
     }
 
-    // Update is called once per frame
-    void Update()
+
+    private void OnTriggerExit(Collider other)
     {
-        
+        if (other.CompareTag("Enemy"))
+            OnEnemyTriggerExit(other);
+    }
+
+    void OnEnemyTriggerExit(Collider col)
+    {
+        if (!parentBase.IsAlive()) return;
+
+        Enemy e = col.gameObject.GetComponent<Enemy>();
+
+        if (e == null) return;
+
+        e.OnPlayerTriggerExit(parentBase);
+
+        parentBase.OnEnemyExitRange(e);
+    }
+
+    void OnEnemyTriggerEnter(Collider col)
+    {
+        if (!parentBase.IsAlive()) return;
+
+        Enemy e = col.gameObject.GetComponent<Enemy>();
+
+        if (e == null) return;
+
+        e.OnPlayerTriggerEnter(parentBase);
+
+        parentBase.OnEnemyEnterRange(e);
     }
 }

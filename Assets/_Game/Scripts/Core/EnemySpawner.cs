@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemySpawner : Singleton<EnemySpawner>
 {
     [SerializeField] string[] enemies;
-    public bool canFollowPlayer = false;
+    public bool canFollow = false;
 
     public Enemy SpawnEnemies (EnemyTypes enemyType)
     {

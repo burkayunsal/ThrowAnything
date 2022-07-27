@@ -2,6 +2,14 @@
 {
     public override void Fire()
     {
+        Enemy e = GetTargetEnemy();
+
+        if(e != null)
+        {
+            GetAnimator().SetTrigger("Throw");
+            e.HP -= Damage();
+        }
+        
     }
 
     public override void OnStart()

@@ -9,8 +9,7 @@ public class Path : MonoBehaviour
     [SerializeField] CurvySpline road;
     public CurvySpline GetRoad() => road;
 
-    [Range(2,20)]
-    [SerializeField] float spawnEnemyInterval;
+    [Range(2,20)][SerializeField] float spawnEnemyInterval;
 
     public Transform SafeZoneEnterPoint, SafeZoneExitPoint;
 
@@ -86,5 +85,12 @@ public class Path : MonoBehaviour
 
         return angle;
     }
+
+
+    public void PlayerInZone(bool isIn)
+    {
+        EnemySpawner.I.canFollow = isIn;
+    }
+
 }
 

@@ -523,7 +523,7 @@ GameObject:
   - component: {fileID: 5877650289583903619}
   m_Layer: 0
   m_Name: EnemyDetection
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -616,6 +616,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 53804828e5b4b4e608f7e81b4db42635, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  parentBase: {fileID: 5877650290391478226}
 --- !u!1 &5886502530837600971
 GameObject:
   m_ObjectHideFlags: 0
@@ -692,7 +693,7 @@ GameObject:
   - component: {fileID: 5877650290391478226}
   m_Layer: 0
   m_Name: BigBoi
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

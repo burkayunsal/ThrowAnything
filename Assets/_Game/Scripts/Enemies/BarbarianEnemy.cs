@@ -4,6 +4,7 @@ public class BarbarianEnemy : Enemy
     public override void InitEnemies()
     {
         HP = 100;
+        
     }
 
     public override void DieMF()

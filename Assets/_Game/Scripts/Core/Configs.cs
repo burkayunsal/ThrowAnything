@@ -11,6 +11,14 @@
             public static float maxHP = 80f;
         }
     }
+
+
+    public static class Enemy
+    {
+        public static float speed = 3f;
+    }
+       
+
     public static class UI
     {
         public static float FadeOutTime = .2f;

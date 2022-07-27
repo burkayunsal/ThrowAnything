@@ -17,7 +17,7 @@ public class PlayerController : Singleton<PlayerController>
     }
 
     AnimStates _animState = AnimStates.Idle;
-    AnimStates AnimationState
+    AnimStates AnimState
     {
         get => _animState;
         set
@@ -39,6 +39,8 @@ public class PlayerController : Singleton<PlayerController>
 
     public delegate void OnAnimationChanged(AnimStates _as);
     OnAnimationChanged onAnimChanged;
+
+    public Transform GetPlayerTransform() => spline.transform;
 
     public void OnGameStarted()
     {
@@ -76,13 +78,13 @@ public class PlayerController : Singleton<PlayerController>
     public void StartMove()
     {
         spline.Speed = Speed;
-        AnimationState = AnimStates.Run;
+        AnimState = AnimStates.Run;
     }
 
     public void StopMove()
     {
         spline.Speed = 0f;
-        AnimationState = AnimStates.Idle;
+        AnimState = AnimStates.Idle;
     }
 
     public void AddNewMob(PlayerMobBase pmb)
