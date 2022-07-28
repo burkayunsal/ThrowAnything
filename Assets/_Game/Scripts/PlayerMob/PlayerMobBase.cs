@@ -62,6 +62,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     {
         AssignEvents();
         OnStart();
+        shootTimer = ShootInterval();
     }
 
     void AssignEvents()
@@ -89,9 +90,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     public virtual void OnEnemyEnterRange(Enemy e)
     {
         if (!lsEnemiesInZone.Contains(e))
-        {
             lsEnemiesInZone.Add(e);
-        }
 
         if (lsEnemiesInZone.Count >= 1)
             StartShooting();
@@ -153,7 +152,6 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
 
     public virtual void StartShooting()
     {
-
         if (PlayerController.I.isInSafeZone) return;
         
         targetEnemy = FindTargetEnemy();
@@ -170,7 +168,9 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         anim.SetLayerWeight(1, 0f);
         isShooting = false;
         targetEnemy = null;
-      
+        transform.DORotate(Vector3.zero, .5f);
+        shootTimer = ShootInterval();
+       
     }
 
     public abstract void OnStart();
@@ -191,6 +191,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         CheckEnemyIsAvailable();
 
         LookAtEnemy();
+        
         if(shootTimer >= ShootInterval())
         {
             Fire();
@@ -215,7 +216,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     {
         if(targetEnemy == null || !targetEnemy.isAlive) return;
        
-        transform.SlowLookAt(targetEnemy.transform.position.WithY(0),8f);
+        transform.SlowLookAt(targetEnemy.transform.position.WithY(transform.position),8f);
     }
 
     void FindNewEnemyAround()
@@ -228,15 +229,9 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
 
     }
 
-    public float ShootInterval()
-    {
-        return 1.2f;
-    }
+    public abstract float ShootInterval();
+    
+    public abstract float Damage();
 
-    public float Damage()
-    {
-        return 50f;
-    }
-    
-    
+
 }

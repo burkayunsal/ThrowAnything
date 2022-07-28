@@ -9,12 +9,39 @@
         {
             public static float detectorRange = 20f;
             public static float maxHP = 80f;
+            public static float damage = 50f;
+            public static float shootInterval = 1.2f;
+        }
+        
+        public static class BigBoiMobSettings
+        {
+            public static float detectorRange = 10f;
+            public static float maxHP = 150f;
+            public static float damage = 100f;
+            public static float shootInterval = 3f;
         }
     }
 
 
     public static class Enemy
     {
+        public static class BarbarianEnemySettings
+        {
+            public static float range = 20f;
+            public static float damage = 50f;
+            public static float attackSpeed = 1.2f;
+            public static float maxHP = 100f;
+        }
+        
+        public static class TrollEnemySettings
+        {
+            public static float range = 10f;
+            public static float damage = 50f;
+            public static float attackSpeed = 1.2f;
+            public static float maxHP = 250f;
+
+        }
+        
         public static float speed = 3f;
     }
        

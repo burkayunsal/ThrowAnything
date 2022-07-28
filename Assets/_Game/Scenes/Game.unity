@@ -1147,7 +1147,7 @@ MonoBehaviour:
   - Big Boi
   playerPrefabs:
   - {fileID: 5877650290391478226, guid: 4941a3a7a7eb844fab142cd5b4b03e2d, type: 3}
-  - {fileID: 5877650290391478226, guid: ebf84aef7a87c485a9fadd75781a38b6, type: 3}
+  - {fileID: -3152250391974663052, guid: ebf84aef7a87c485a9fadd75781a38b6, type: 3}
 --- !u!1 &470128075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1685,6 +1685,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 71f61212bad5648639c010a6c7669d6f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isInSafeZone: 1
   spline: {fileID: 1550122171}
 --- !u!1 &931349254
 GameObject:
@@ -3754,9 +3755,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7fe8f5905339b4f1d8b29a8e90be5bcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemies:
-  - Barbarian
-  - Troll
   canFollow: 0
 --- !u!1 &1616228663
 GameObject:

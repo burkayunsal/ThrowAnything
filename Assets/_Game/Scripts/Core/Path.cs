@@ -21,7 +21,7 @@ public class Path : MonoBehaviour
     }
 
 
-    void SetEnemyPositions(float startFrom, float endAt)
+    public void SetEnemyPositions(float startFrom, float endAt)
     {
         float interval = (endAt - startFrom) / spawnEnemyInterval;
         int enemyCount = Mathf.CeilToInt(interval);
@@ -53,7 +53,6 @@ public class Path : MonoBehaviour
         PlaceGround(angle);
 
         SetEnemyPositions(startSpawnFrom, endSpawnAt);
-
     }
 
     void PlaceGround(float angle)

@@ -29,4 +29,5 @@ public class PlayerSpawner : Singleton<PlayerSpawner>
             pmb.StopShooting();
         }
     }
+    
 }

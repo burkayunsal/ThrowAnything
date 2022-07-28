@@ -3,12 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-
 public class EnemySpawner : Singleton<EnemySpawner>
 {
     List<Enemy> enemies = new List<Enemy>();
     public bool canFollow = false;
 
+    private Path path = new Path();
+    
     public Enemy SpawnEnemies ()
     {
         Enemy enemy = null;
@@ -27,11 +28,7 @@ public class EnemySpawner : Singleton<EnemySpawner>
                 enemies.Add(enemy);
                 break;
         }
-        
-        
-
         return enemy;
-
     }
 
     public void StopAllEnemies()
@@ -42,6 +39,8 @@ public class EnemySpawner : Singleton<EnemySpawner>
         }
         enemies.Clear();
     }
+    
+    
 
     EnemyTypes GetRandomEnemyType()
     {

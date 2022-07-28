@@ -350,13 +350,14 @@ GameObject:
   - component: {fileID: 2480105461229676442}
   - component: {fileID: 2480105461229676441}
   - component: {fileID: 2480105461229676440}
-  m_Layer: 0
+  - component: {fileID: 8970001350298581186}
+  m_Layer: 11
   m_Name: EnemyDetection
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2480105461229676446
 Transform:
   m_ObjectHideFlags: 0
@@ -428,11 +429,24 @@ SphereCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2480105461229676445}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &8970001350298581186
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2480105461229676445}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c0ed878903cd04cbeaa22cf34658032e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  parent: {fileID: -7709509145699506432}
 --- !u!1 &3273582954608164388
 GameObject:
   m_ObjectHideFlags: 0
@@ -553,8 +567,8 @@ MonoBehaviour:
   rb: {fileID: 2480105459890412495}
   anim: {fileID: 2480105459890412493}
   rd: {fileID: 5573539429123434142}
-  Range: 1
-  Damage: 7
+  detector: {fileID: 8970001350298581186}
+  Damage: 70
   AttackSpeed: 2
 --- !u!136 &3977026183675777353
 CapsuleCollider:

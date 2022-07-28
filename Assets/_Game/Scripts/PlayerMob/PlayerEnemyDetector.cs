@@ -13,15 +13,22 @@ public class PlayerEnemyDetector : MonoBehaviour
 
     }
 
- 
-
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Enemy"))
             OnEnemyTriggerExit(other);
     }
     
-    
+    void OnEnemyTriggerEnter(Collider col)
+    {
+        if (!parentBase.IsAlive()) return;
+
+        Enemy e = col.gameObject.GetComponent<Enemy>();
+
+        if (e == null) return;
+        
+        parentBase.OnEnemyEnterRange(e);
+    }
 
     void OnEnemyTriggerExit(Collider col)
     {
@@ -30,24 +37,10 @@ public class PlayerEnemyDetector : MonoBehaviour
         Enemy e = col.gameObject.GetComponent<Enemy>();
 
         if (e == null) return;
-
-        e.OnPlayerTriggerExit(parentBase);
-
+        
         parentBase.OnEnemyExitRange(e);
     }
-
-    void OnEnemyTriggerEnter(Collider col)
-    {
-        if (!parentBase.IsAlive()) return;
-
-        Enemy e = col.gameObject.GetComponent<Enemy>();
-
-        if (e == null) return;
-
-        e.OnPlayerTriggerEnter(parentBase);
-
-        parentBase.OnEnemyEnterRange(e);
-    }
+    
 }
 
 

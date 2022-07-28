@@ -1,10 +1,12 @@
 
-
 public class TrollEnemy : Enemy
 {
     public override void InitEnemies()
     {
-        HP = 250;
+        HP = Configs.Enemy.TrollEnemySettings.maxHP;
+        DetectorRange = Configs.Enemy.TrollEnemySettings.range;
+        Damage =Configs.Enemy.TrollEnemySettings.damage;
+        AttackSpeed = Configs.Enemy.TrollEnemySettings.attackSpeed;
     }
 
     public override void DieMF()

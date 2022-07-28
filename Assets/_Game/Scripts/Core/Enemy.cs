@@ -10,10 +10,10 @@ public abstract class Enemy : PoolObject
     [SerializeField] Rigidbody rb;
     [SerializeField] Animator anim;
     [SerializeField] Renderer rd;
+    [SerializeField] EnemyPlayerDetector detector;
 
-    [SerializeField] float Range;
-    [SerializeField] float Damage;
-    [SerializeField] float AttackSpeed;
+    public float Damage;
+    public float AttackSpeed;
 
     float Speed => Configs.Enemy.speed;
 
@@ -36,6 +36,18 @@ public abstract class Enemy : PoolObject
                 _animState = value;
                 anim.SetTrigger(_animState.ToString());
             }
+        }
+    }
+    
+    float _detectorRange;
+    public float DetectorRange
+    {
+        get => _detectorRange;
+
+        set
+        {
+            _detectorRange = value;
+            detector.transform.localScale = Vector3.one * _detectorRange;
         }
     }
 
@@ -98,11 +110,9 @@ public abstract class Enemy : PoolObject
         }
     }
 
- 
-
     List<PlayerMobBase> lsPlayersInTriggerZone = new List<PlayerMobBase>();
 
-    public virtual void OnPlayerTriggerEnter(PlayerMobBase pmb)
+    public virtual void OnPlayerEnterRange(PlayerMobBase pmb)
     {
         if (!lsPlayersInTriggerZone.Contains(pmb))
             lsPlayersInTriggerZone.Add(pmb);
@@ -114,7 +124,7 @@ public abstract class Enemy : PoolObject
         }
     }
 
-    public virtual void OnPlayerTriggerExit(PlayerMobBase pmb)
+    public virtual void OnPlayerExitRange(PlayerMobBase pmb)
     {
         if (lsPlayersInTriggerZone.Contains(pmb))
             lsPlayersInTriggerZone.Remove(pmb);
@@ -125,5 +135,5 @@ public abstract class Enemy : PoolObject
             AnimState = AnimationStates.Idle;
         }
     }
-
+    
 }

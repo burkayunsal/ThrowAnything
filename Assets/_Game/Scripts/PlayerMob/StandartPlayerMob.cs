@@ -18,4 +18,13 @@
         HP = Configs.Player.StandartMobSettings.maxHP;
     }
 
+    public override float ShootInterval()
+    {
+        return Configs.Player.StandartMobSettings.shootInterval;
+    }
+
+    public override float Damage()
+    {
+        return Configs.Player.StandartMobSettings.damage;
+    }
 }

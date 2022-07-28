@@ -3,8 +3,10 @@ public class BarbarianEnemy : Enemy
 {
     public override void InitEnemies()
     {
-        HP = 100;
-        
+        HP = Configs.Enemy.BarbarianEnemySettings.maxHP;
+        DetectorRange = Configs.Enemy.BarbarianEnemySettings.range;
+        Damage =Configs.Enemy.BarbarianEnemySettings.damage;
+        AttackSpeed = Configs.Enemy.BarbarianEnemySettings.attackSpeed;
     }
 
     public override void DieMF()
