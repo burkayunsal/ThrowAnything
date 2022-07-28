@@ -9,29 +9,35 @@ public class Path : MonoBehaviour
 {
     [SerializeField] CurvySpline road;
     public CurvySpline GetRoad() => road;
+    
+    [Range(0,1f)]
+    [SerializeField] float safeZoneAreaPer = .3f;
 
     [Range(2,20)][SerializeField] float spawnEnemyInterval;
 
-    public Transform safeZoneEnterPoint, safeZoneExitPoint;
+    public Transform safeZoneEnterPoint, safeZoneExitPoint, respawnPoint;
 
     private void Start()
     {
+        respawnPoint.position =road.Interpolate(Configs.PathConfigs.respawnPoint).WithY(3);
+        
         EnemySpawner.I.CreateSpawnPool(spawnRules);
         SetSafeZone();
     }
 
-
-    public void SetEnemyPositions(float startFrom, float endAt)
+    private float startFrom, endAt;
+    
+     void SetEnemyPositions()
     {
         float interval = (endAt - startFrom) / spawnEnemyInterval;
         int enemyCount = Mathf.CeilToInt(interval);
 
         for (int i = 0; i < enemyCount; i++)
         {
-            Enemy enemy = null;
-            enemy = EnemySpawner.I.SpawnEnemies();
+            EnemyBase enemyBase = null;
+            enemyBase = EnemySpawner.I.SpawnEnemies();
 
-            enemy.transform.position = (road.InterpolateByDistance(startFrom + (i * spawnEnemyInterval)).GetPointAround(Vector3.up, Random.Range(0f, 360f), Random.Range(5f, 10f), false)).WithY(0) ;
+            enemyBase.transform.position = (road.InterpolateByDistance(startFrom + (i * spawnEnemyInterval)).GetPointAround(Vector3.up, Random.Range(0f, 360f), Random.Range(5f, 10f), false)).WithY(0) ;
             
         }
 
@@ -39,11 +45,11 @@ public class Path : MonoBehaviour
     void SetSafeZone()
     {
         float tenPercentage = road.Length / 10;
-        float startSpawnFrom = 3f * tenPercentage;
-        float endSpawnAt = 8.5f * tenPercentage;
+        float startSpawnFrom = safeZoneAreaPer * tenPercentage * 10f;
+        float endSpawnAt = (1f - (safeZoneAreaPer / 2f)) * tenPercentage * 10f;
 
-        safeZoneEnterPoint.position = road.Interpolate(0.85f).WithY(3);
-        safeZoneExitPoint.position = road.Interpolate(0.15f).WithY(3);
+        safeZoneEnterPoint.position = road.Interpolate((1-(safeZoneAreaPer/2f))).WithY(3);
+        safeZoneExitPoint.position = road.Interpolate((safeZoneAreaPer/2f)).WithY(3);
 
         float angle = CalculateAngle();
 
@@ -51,8 +57,10 @@ public class Path : MonoBehaviour
         safeZoneExitPoint.rotation = Quaternion.Euler(Vector3.up * angle);
 
         PlaceGround(angle);
-
-        SetEnemyPositions(startSpawnFrom, endSpawnAt);
+        
+        startFrom = startSpawnFrom;
+        endAt = endSpawnAt;
+        SetEnemyPositions();
     }
 
     void PlaceGround(float angle)
@@ -83,9 +91,16 @@ public class Path : MonoBehaviour
             EnemySpawner.I.StopAllEnemies();
             PlayerSpawner.I.StopShooting();
         }
-     
+    }
+    
+    public void PlayerAtRespawnPoint()
+    {
+        EnemySpawner.I.ClearAllEnemies();
+        SetEnemyPositions();
     }
 
+    
+    
 
     public SpawnRule spawnRules;
     [System.Serializable]

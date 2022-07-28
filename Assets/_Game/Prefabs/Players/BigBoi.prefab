@@ -679,6 +679,36 @@ Transform:
   m_Father: {fileID: 3723693020676730287}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6153635808319908999
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 368018414868813395}
+  m_Layer: 0
+  m_Name: ThrowingPosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &368018414868813395
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6153635808319908999}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0.242, y: 0.052, z: -0.085}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5198340370272971770}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &6724140454240561507
 GameObject:
   m_ObjectHideFlags: 0
@@ -766,6 +796,9 @@ MonoBehaviour:
   rb: {fileID: 5877650290391478227}
   anim: {fileID: 5877650290391478225}
   detector: {fileID: 5877650289583903619}
+  anythings:
+  - {fileID: 4871095949104615853, guid: e5d017eb3cd6b416a8148c708470d4fb, type: 3}
+  HandPoint: {fileID: 368018414868813395}
 --- !u!136 &-4493459325208929012
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -962,7 +995,8 @@ Transform:
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: -0, y: 0.37117824, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 368018414868813395}
   m_Father: {fileID: 8215345434860380570}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

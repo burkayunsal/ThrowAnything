@@ -18,8 +18,13 @@
             public static float detectorRange = 10f;
             public static float maxHP = 150f;
             public static float damage = 100f;
-            public static float shootInterval = 3f;
+            public static float shootInterval = 2f;
         }
+    }
+
+    public static class PathConfigs
+    {
+        public const float respawnPoint = .92f;
     }
 
 

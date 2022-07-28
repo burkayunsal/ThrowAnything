@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
+using FluffyUnderware.DevTools;
 using SBF.Extentions.Transforms;
 using SBF.Extentions.Vector;
 using UnityEngine;
 
-public abstract class Enemy : PoolObject
+public abstract class EnemyBase : PoolObject
 {
 
     [SerializeField] Rigidbody rb;
@@ -12,6 +13,10 @@ public abstract class Enemy : PoolObject
     [SerializeField] Renderer rd;
     [SerializeField] EnemyPlayerDetector detector;
 
+
+    private Color initialColor;
+   
+    
     public float Damage;
     public float AttackSpeed;
 
@@ -66,13 +71,30 @@ public abstract class Enemy : PoolObject
     }
 
     public bool isAlive => HP > 0;
-
+    
+    private void ChangeColor(Color c)
+    {
+        rd.material.color = c;
+    }
+    
+    public void SetInitialColor()
+    {
+        ChangeColor(initialColor);
+    }
 
     private void Start()
     {
         InitEnemies();
-
+        initialColor = rd.material.color;
     }
+    public virtual void ResetMe()
+    {
+        SetInitialColor();
+        canFollow = false;
+        AnimState = AnimationStates.Idle;
+        //Ragdoll u kapat;
+    }
+   
 
     public void StopFollow()
     {
@@ -87,9 +109,10 @@ public abstract class Enemy : PoolObject
     {
         transform.SetParent(null);
         canFollow = false;
-        //Material gri yap
-        rd.material.color = Color.gray;
+        ChangeColor(Color.gray);
         AnimState = AnimationStates.Idle;
+        //Ragdoll a gir
+        
         //OnDeactivate();
     }
 
@@ -100,9 +123,11 @@ public abstract class Enemy : PoolObject
 
     public abstract void InitEnemies();
 
+    bool IsAbleToFollow() => GameManager.isRunning && !PlayerController.I.isInSafeZone && canFollow && isAlive;
+    
     private void Update()
     {
-        if (GameManager.isRunning &&  !PlayerController.I.isInSafeZone && canFollow)
+        if (IsAbleToFollow())
         {
             rb.transform.position += rb.transform.forward * (Time.deltaTime * Speed);
             rb.transform.SlowLookAt(PlayerController.I.GetPlayerTransform(), 8f);

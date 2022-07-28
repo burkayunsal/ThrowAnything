@@ -5,30 +5,27 @@ using UnityEngine;
 
 public class EnemySpawner : Singleton<EnemySpawner>
 {
-    List<Enemy> enemies = new List<Enemy>();
-    public bool canFollow = false;
+    List<EnemyBase> enemies = new List<EnemyBase>();
 
-    private Path path = new Path();
-    
-    public Enemy SpawnEnemies ()
+    public EnemyBase SpawnEnemies ()
     {
-        Enemy enemy = null;
+        EnemyBase enemyBase = null;
 
         EnemyTypes enemyType = GetRandomEnemyType();
         
         switch (enemyType)
         {
             case EnemyTypes.Barbarian:
-                enemy = PoolManager.I.GetObject<BarbarianEnemy>();
-                enemies.Add(enemy);
+                enemyBase = PoolManager.I.GetObject<BarbarianEnemyBase>();
+                enemies.Add(enemyBase);
                 break;
 
             case EnemyTypes.Troll:
-                enemy = PoolManager.I.GetObject<TrollEnemy>();
-                enemies.Add(enemy);
+                enemyBase = PoolManager.I.GetObject<TrollEnemyBase>();
+                enemies.Add(enemyBase);
                 break;
         }
-        return enemy;
+        return enemyBase;
     }
 
     public void StopAllEnemies()
@@ -36,6 +33,15 @@ public class EnemySpawner : Singleton<EnemySpawner>
         foreach (var enemy in enemies)
         {
             enemy.StopFollow();
+        }
+        enemies.Clear();
+    }
+
+    public void ClearAllEnemies()
+    {
+            foreach (var enemy in enemies)
+        {
+            enemy.OnDeactivate();
         }
         enemies.Clear();
     }

@@ -46,17 +46,13 @@ public class PlayerController : Singleton<PlayerController>
 
     public void OnGameStarted()
     {
-
         //Vector3 v = spline.Spline.InterpolateByDistance(15f);
         //go.transform.position = v;
     }
 
     private void Start()
     {
-        
-        PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.Standart);
         PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.BigBoi);
-       
     }
 
     public void SetRoad(Path newRoad)
@@ -72,7 +68,6 @@ public class PlayerController : Singleton<PlayerController>
         spline.OnEndReached = curvySplineMoveEvent;
 
         CameraController.I.Init();
-
     }
  
 
@@ -127,8 +122,7 @@ public class PlayerController : Singleton<PlayerController>
             }
         }
     }
-
-
+    
     void OnRoadCompleted(CurvySplineMoveEventArgs args)
     {
         Debug.Log("Road Completed");

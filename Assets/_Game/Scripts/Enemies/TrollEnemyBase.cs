@@ -1,5 +1,5 @@
 
-public class TrollEnemy : Enemy
+public class TrollEnemyBase : EnemyBase
 {
     public override void InitEnemies()
     {
@@ -8,7 +8,7 @@ public class TrollEnemy : Enemy
         Damage =Configs.Enemy.TrollEnemySettings.damage;
         AttackSpeed = Configs.Enemy.TrollEnemySettings.attackSpeed;
     }
-
+    private bool hasInitialized = false;
     public override void DieMF()
     {
         base.DieMF();
@@ -22,6 +22,16 @@ public class TrollEnemy : Enemy
     public override void OnSpawn()
     {
         gameObject.SetActive(true);
+        if (hasInitialized)
+            ResetMe();
+        else
+            hasInitialized = true;
+    }
+
+    public override void ResetMe()
+    {
+        base.ResetMe();
+        HP = Configs.Enemy.TrollEnemySettings.maxHP;
     }
 
     public override void OnCreated()

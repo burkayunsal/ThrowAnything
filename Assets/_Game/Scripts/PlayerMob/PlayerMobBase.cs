@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using Packages.Rider.Editor.UnitTesting;
@@ -11,14 +12,16 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     [SerializeField] Rigidbody rb;
     [SerializeField] Animator anim;
     [SerializeField] PlayerEnemyDetector detector;
-
+    
     public Animator GetAnimator() => anim;
 
-    List<Enemy> lsEnemiesInZone = new List<Enemy>();
+    List<EnemyBase> lsEnemiesInZone = new List<EnemyBase>();
 
-    Enemy targetEnemy;
+    EnemyBase _targetEnemyBase;
 
-    public Enemy GetTargetEnemy() => targetEnemy;
+    [SerializeField] public Transform HandPoint;
+    
+    public EnemyBase GetTargetEnemy() => _targetEnemyBase;
 
     float _detectorRange;
     public float DetectorRange
@@ -65,6 +68,8 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         shootTimer = ShootInterval();
     }
 
+    
+
     void AssignEvents()
     {
         PlayerController.I.AddNewMob(this);
@@ -87,7 +92,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         PlayerController.I.RemovePlayer(this);
     }
 
-    public virtual void OnEnemyEnterRange(Enemy e)
+    public virtual void OnEnemyEnterRange(EnemyBase e)
     {
         if (!lsEnemiesInZone.Contains(e))
             lsEnemiesInZone.Add(e);
@@ -96,11 +101,11 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
             StartShooting();
     }
 
-    public virtual void OnEnemyExitRange(Enemy e)
+    public virtual void OnEnemyExitRange(EnemyBase e)
     {
         if (lsEnemiesInZone.Contains(e))
         {
-            if(e == targetEnemy)
+            if(e == _targetEnemyBase)
             {
                 FindNewEnemyAround();
             }
@@ -112,9 +117,9 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
             StopShooting();
     }
 
-    Enemy FindTargetEnemy()
+    EnemyBase FindTargetEnemy()
     {
-        Enemy e = null;
+        EnemyBase e = null;
 
         List<int> lsUnavailables = new List<int>();
 
@@ -154,24 +159,31 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     {
         if (PlayerController.I.isInSafeZone) return;
         
-        targetEnemy = FindTargetEnemy();
+        _targetEnemyBase = FindTargetEnemy();
 
-        if (targetEnemy == null) return;
-
-        targetEnemy.OnSelectedAsTarget();
+        if (_targetEnemyBase == null) return;
+        if (rotationTween != null)
+            rotationTween.Kill();
+        _targetEnemyBase.OnSelectedAsTarget();
         anim.SetLayerWeight(1, 1f);
+        // shootTimer = ShootInterval();
         isShooting = true;
+        
     }
 
+    Tween rotationTween = null;
     public virtual void StopShooting()
     {
         anim.SetLayerWeight(1, 0f);
         isShooting = false;
-        targetEnemy = null;
-        transform.DORotate(Vector3.zero, .5f);
-        shootTimer = ShootInterval();
-       
+        _targetEnemyBase = null;
+        if (rotationTween != null)
+            rotationTween.Kill();
+        rotationTween = transform.DOLocalRotate(Vector3.zero, .5f);
+        //shootTimer = ShootInterval();
     }
+    
+    
 
     public abstract void OnStart();
     public abstract void Fire();
@@ -201,34 +213,42 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
 
     void CheckEnemyIsAvailable()
     {
-        if(targetEnemy != null)
+        if(_targetEnemyBase != null)
         {
-            if (!targetEnemy.isAlive)
+            if (!_targetEnemyBase.isAlive)
             {
-                targetEnemy = null;
+                _targetEnemyBase = null;
                 FindNewEnemyAround();
             }
         }
-       
     }
 
     void LookAtEnemy()
     {
-        if(targetEnemy == null || !targetEnemy.isAlive) return;
+        if(_targetEnemyBase == null || !_targetEnemyBase.isAlive) return;
        
-        transform.SlowLookAt(targetEnemy.transform.position.WithY(transform.position),8f);
+        transform.SlowLookAt(_targetEnemyBase.transform.position.WithY(transform.position),8f);
     }
 
     void FindNewEnemyAround()
     {
         //StopShooting();
-        targetEnemy = FindTargetEnemy();
+        _targetEnemyBase = FindTargetEnemy();
 
-        if (targetEnemy == null) StopShooting();
-        else targetEnemy.OnSelectedAsTarget();
+        if (_targetEnemyBase == null) StopShooting();
+        else _targetEnemyBase.OnSelectedAsTarget();
 
     }
 
+    //TODO HESAPLA BURAYI BEBİŞ
+    public Vector3 CalculateThrowForce()
+    {
+        return transform.forward * 10f + transform.up * 2f;
+        
+    }
+
+    public abstract void ThrowAnything();
+    
     public abstract float ShootInterval();
     
     public abstract float Damage();

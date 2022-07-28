@@ -6,12 +6,12 @@ public class BigBoiPlayerMob : PlayerMobBase
 {
     public override void Fire()
     {
-        Enemy e = GetTargetEnemy();
+        EnemyBase e = GetTargetEnemy();
 
         if(e != null)
         {
             GetAnimator().SetTrigger("Throw");
-            e.HP -= Damage();
+            //e.HP -= Damage();
         }
         
     }
@@ -20,6 +20,14 @@ public class BigBoiPlayerMob : PlayerMobBase
     {
         DetectorRange = Configs.Player.BigBoiMobSettings.detectorRange;
         HP = Configs.Player.BigBoiMobSettings.maxHP;
+    }
+
+    public override void ThrowAnything()
+    {
+        Anything a = PoolManager.I.GetObject<Anything>();
+        a.damaage = Configs.Player.BigBoiMobSettings.damage;
+        a.transform.position = HandPoint.position;
+        a.Throw(CalculateThrowForce());
     }
 
     public override float ShootInterval()

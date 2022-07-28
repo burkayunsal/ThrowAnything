@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyPlayerDetector : MonoBehaviour
 {
-    [SerializeField] Enemy parent;
+    [SerializeField] EnemyBase parent;
     
     private void OnTriggerEnter(Collider other)
     {

@@ -23,7 +23,7 @@ public class PlayerEnemyDetector : MonoBehaviour
     {
         if (!parentBase.IsAlive()) return;
 
-        Enemy e = col.gameObject.GetComponent<Enemy>();
+        EnemyBase e = col.gameObject.GetComponent<EnemyBase>();
 
         if (e == null) return;
         
@@ -34,7 +34,7 @@ public class PlayerEnemyDetector : MonoBehaviour
     {
         if (!parentBase.IsAlive()) return;
 
-        Enemy e = col.gameObject.GetComponent<Enemy>();
+        EnemyBase e = col.gameObject.GetComponent<EnemyBase>();
 
         if (e == null) return;
         

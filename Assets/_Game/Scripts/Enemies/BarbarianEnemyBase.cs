@@ -1,5 +1,5 @@
 
-public class BarbarianEnemy : Enemy
+public class BarbarianEnemyBase : EnemyBase
 {
     public override void InitEnemies()
     {
@@ -14,6 +14,7 @@ public class BarbarianEnemy : Enemy
         base.DieMF();
     }
 
+    private bool hasInitialized = false;
     public override void OnDeactivate()
     {
         gameObject.SetActive(false);
@@ -22,6 +23,16 @@ public class BarbarianEnemy : Enemy
     public override void OnSpawn()
     {
         gameObject.SetActive(true);
+        if (hasInitialized)
+            ResetMe();
+        else
+            hasInitialized = true;
+    }
+
+    public override void ResetMe()
+    {
+        base.ResetMe();
+        HP = Configs.Enemy.BarbarianEnemySettings.maxHP;
     }
 
     public override void OnCreated()
