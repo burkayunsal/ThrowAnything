@@ -11,7 +11,6 @@ public class StandartPlayerMob : PlayerMobBase
             GetAnimator().SetTrigger("Throw");
             //e.HP -= Damage();
         }
-        
     }
 
     public override void OnStart()
@@ -24,6 +23,7 @@ public class StandartPlayerMob : PlayerMobBase
     {
         Anything a = PoolManager.I.GetObject<Anything>();
         a.damaage = Configs.Player.StandartMobSettings.damage;
+        a.transform.position = HandPoint.position;
         a.Throw(CalculateThrowForce());
     }
 

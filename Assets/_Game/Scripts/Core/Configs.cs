@@ -5,6 +5,7 @@
         public static float speed = 10f;
         public static float distanceBetweenMobs = 2f;
 
+        
         public static class StandartMobSettings
         {
             public static float detectorRange = 20f;
@@ -18,7 +19,7 @@
             public static float detectorRange = 10f;
             public static float maxHP = 150f;
             public static float damage = 100f;
-            public static float shootInterval = 2f;
+            public static float shootInterval = 3f;
         }
     }
 

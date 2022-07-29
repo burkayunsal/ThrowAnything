@@ -698,7 +698,7 @@ Transform:
   m_Children:
   - {fileID: 1575238897939288070}
   m_Father: {fileID: 1575238899661225978}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1575238898775882997
 MonoBehaviour:
@@ -1508,8 +1508,8 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
-  - {fileID: 1575238898775882998}
   - {fileID: 1575238899716683066}
+  - {fileID: 1575238898775882998}
   - {fileID: 1575238899962995894}
   - {fileID: 1575238898462761742}
   - {fileID: 1575238898957533908}
@@ -1541,8 +1541,8 @@ MonoBehaviour:
       m_Calls: []
   m_ForceFrequentUpdates: 0
   Modules:
-  - {fileID: 1575238898775882997}
   - {fileID: 1575238899716683065}
+  - {fileID: 1575238898775882997}
   - {fileID: 1575238899962995893}
   - {fileID: 1575238898462761741}
   - {fileID: 1575238898957533899}
@@ -1611,9 +1611,9 @@ MonoBehaviour:
   spawnRules:
     rules:
     - enemyType: 0
-      amount: 30
+      amount: 40
     - enemyType: 1
-      amount: 20
+      amount: 10
 --- !u!1 &1575238899695758811
 GameObject:
   m_ObjectHideFlags: 0
@@ -1730,7 +1730,7 @@ Transform:
   m_Children:
   - {fileID: 1575238899505121897}
   m_Father: {fileID: 1575238899661225978}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1575238899716683065
 MonoBehaviour:

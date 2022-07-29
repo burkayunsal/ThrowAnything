@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BigBoiPlayerMob : PlayerMobBase
@@ -13,7 +11,6 @@ public class BigBoiPlayerMob : PlayerMobBase
             GetAnimator().SetTrigger("Throw");
             //e.HP -= Damage();
         }
-        
     }
 
     public override void OnStart()
@@ -28,6 +25,7 @@ public class BigBoiPlayerMob : PlayerMobBase
         a.damaage = Configs.Player.BigBoiMobSettings.damage;
         a.transform.position = HandPoint.position;
         a.Throw(CalculateThrowForce());
+        
     }
 
     public override float ShootInterval()

@@ -154,7 +154,6 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         return e;
     }
 
-
     public virtual void StartShooting()
     {
         if (PlayerController.I.isInSafeZone) return;
@@ -164,11 +163,10 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         if (_targetEnemyBase == null) return;
         if (rotationTween != null)
             rotationTween.Kill();
-        _targetEnemyBase.OnSelectedAsTarget();
-        anim.SetLayerWeight(1, 1f);
-        // shootTimer = ShootInterval();
-        isShooting = true;
         
+        anim.SetLayerWeight(1, 1f);
+        shootTimer = ShootInterval();
+        isShooting = true;
     }
 
     Tween rotationTween = null;
@@ -183,8 +181,6 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         //shootTimer = ShootInterval();
     }
     
-    
-
     public abstract void OnStart();
     public abstract void Fire();
 
@@ -232,19 +228,18 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
 
     void FindNewEnemyAround()
     {
-        //StopShooting();
         _targetEnemyBase = FindTargetEnemy();
-
         if (_targetEnemyBase == null) StopShooting();
-        else _targetEnemyBase.OnSelectedAsTarget();
-
     }
 
-    //TODO HESAPLA BURAYI BEBİŞ
     public Vector3 CalculateThrowForce()
     {
-        return transform.forward * 10f + transform.up * 2f;
-        
+        Vector3 forceVector, forceDirection;
+
+        forceDirection = _targetEnemyBase.transform.position;// - transform.position;
+            forceVector = forceDirection;//.normalized * Configs.Player.throwForce;
+            
+        return forceVector;
     }
 
     public abstract void ThrowAnything();

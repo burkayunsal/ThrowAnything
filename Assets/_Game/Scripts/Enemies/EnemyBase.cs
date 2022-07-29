@@ -13,9 +13,10 @@ public abstract class EnemyBase : PoolObject
     [SerializeField] Renderer rd;
     [SerializeField] EnemyPlayerDetector detector;
 
-
+    List<PlayerMobBase> lsPlayersInTriggerZone = new List<PlayerMobBase>();
+    PlayerMobBase _targetPlayerBase;
+    
     private Color initialColor;
-   
     
     public float Damage;
     public float AttackSpeed;
@@ -23,7 +24,6 @@ public abstract class EnemyBase : PoolObject
     float Speed => Configs.Enemy.speed;
 
     bool canFollow = false;
-
 
     enum AnimationStates
     {
@@ -116,11 +116,6 @@ public abstract class EnemyBase : PoolObject
         //OnDeactivate();
     }
 
-    public void OnSelectedAsTarget()
-    {
-        //rd.material.color = Color.green;
-    }
-
     public abstract void InitEnemies();
 
     bool IsAbleToFollow() => GameManager.isRunning && !PlayerController.I.isInSafeZone && canFollow && isAlive;
@@ -129,13 +124,12 @@ public abstract class EnemyBase : PoolObject
     {
         if (IsAbleToFollow())
         {
+            _targetPlayerBase = FindTargetPlayer();
             rb.transform.position += rb.transform.forward * (Time.deltaTime * Speed);
             rb.transform.SlowLookAt(PlayerController.I.GetPlayerTransform(), 8f);
-
         }
     }
-
-    List<PlayerMobBase> lsPlayersInTriggerZone = new List<PlayerMobBase>();
+    
 
     public virtual void OnPlayerEnterRange(PlayerMobBase pmb)
     {
@@ -147,6 +141,8 @@ public abstract class EnemyBase : PoolObject
             canFollow = true;
             AnimState = AnimationStates.Run;
         }
+        
+
     }
 
     public virtual void OnPlayerExitRange(PlayerMobBase pmb)
@@ -160,5 +156,41 @@ public abstract class EnemyBase : PoolObject
             AnimState = AnimationStates.Idle;
         }
     }
-    
+
+    PlayerMobBase FindTargetPlayer()
+    {
+        PlayerMobBase pmb = null;
+        
+        List<int> lsUnavailables = new List<int>();
+        
+        for (int i = 0; i < lsPlayersInTriggerZone.Count; i++)
+        {
+            if(pmb == null)
+            {
+                if (lsPlayersInTriggerZone[i] != null)
+                {
+                    if (lsPlayersInTriggerZone[i].IsAlive())
+                    {
+                        pmb = lsPlayersInTriggerZone[i];
+                        break;
+                    }
+                    else
+                        lsUnavailables.Add(i);
+                }
+                else
+                    lsUnavailables.Add(i);
+            }
+        }
+        
+        for (int i = 0; i < lsUnavailables.Count; i++)
+        {
+            if (i<lsPlayersInTriggerZone.Count)
+            {
+                lsPlayersInTriggerZone.RemoveAt(lsUnavailables[i]);
+            }
+        }
+        
+        return pmb;
+    }
+
 }

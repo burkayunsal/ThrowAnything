@@ -34,16 +34,15 @@ public class EnemySpawner : Singleton<EnemySpawner>
         {
             enemy.StopFollow();
         }
-        enemies.Clear();
     }
 
     public void ClearAllEnemies()
     {
             foreach (var enemy in enemies)
-        {
-            enemy.OnDeactivate();
-        }
-        enemies.Clear();
+            {
+                enemy.OnDeactivate();
+            }
+            enemies.Clear();
     }
     
     

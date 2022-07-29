@@ -1561,7 +1561,7 @@ GameObject:
   - component: {fileID: 798710152}
   m_Layer: 0
   m_Name: Red Ground
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2117,7 +2117,7 @@ GameObject:
   - component: {fileID: 1108934747}
   m_Layer: 0
   m_Name: Green Ground
-  m_TagString: Untagged
+  m_TagString: Plane
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

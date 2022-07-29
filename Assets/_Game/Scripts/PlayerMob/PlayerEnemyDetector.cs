@@ -10,7 +10,6 @@ public class PlayerEnemyDetector : MonoBehaviour
     {
         if (other.CompareTag("Enemy"))
             OnEnemyTriggerEnter(other);
-
     }
 
     private void OnTriggerExit(Collider other)
@@ -40,7 +39,4 @@ public class PlayerEnemyDetector : MonoBehaviour
         
         parentBase.OnEnemyExitRange(e);
     }
-    
 }
-
-

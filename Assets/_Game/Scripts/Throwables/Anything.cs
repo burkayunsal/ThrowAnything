@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -9,6 +6,7 @@ public class Anything : PoolObject
     [SerializeField] private Rigidbody rb;
     [SerializeField] private GameObject[] anythings;
     public override void OnDeactivate()
+    
     {
         gameObject.SetActive(false);
         rb.isKinematic = true;
@@ -28,7 +26,8 @@ public class Anything : PoolObject
 
     public void Throw(Vector3 v)
     {
-        rb.AddForce(v, ForceMode.Impulse);
+        rb.transform.LookAt(v);
+        rb.AddForce(rb.transform.forward * v.magnitude / 2f + Vector3.up * 3f, ForceMode.Impulse);
     }
 
     private void ShowRandomAnything()
@@ -52,6 +51,10 @@ public class Anything : PoolObject
                 e.HP -= damaage;
                 OnDeactivate();
             }
+        }
+        if (collision.collider.CompareTag("Plane"))
+        {
+            OnDeactivate();
         }
     }
 }
