@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using FluffyUnderware.DevTools;
@@ -11,12 +12,15 @@ public abstract class EnemyBase : PoolObject
     [SerializeField] Rigidbody rb;
     [SerializeField] Animator anim;
     [SerializeField] Renderer rd;
+    public Renderer GetRenderer() => rd;
     [SerializeField] EnemyPlayerDetector detector;
 
     List<PlayerMobBase> lsPlayersInTriggerZone = new List<PlayerMobBase>();
-    PlayerMobBase _targetPlayerBase;
-    
-    private Color initialColor;
+    PlayerMobBase _targetPlayerMobBase;
+
+    //public PlayerMobBase GetTargetPlayer() => _targetPlayerMobBase;
+    [HideInInspector]
+    public Color initialColor;
     
     public float Damage;
     public float AttackSpeed;
@@ -82,11 +86,6 @@ public abstract class EnemyBase : PoolObject
         ChangeColor(initialColor);
     }
 
-    private void Start()
-    {
-        InitEnemies();
-        initialColor = rd.material.color;
-    }
     public virtual void ResetMe()
     {
         SetInitialColor();
@@ -118,15 +117,15 @@ public abstract class EnemyBase : PoolObject
 
     public abstract void InitEnemies();
 
-    bool IsAbleToFollow() => GameManager.isRunning && !PlayerController.I.isInSafeZone && canFollow && isAlive;
+    bool IsAbleToFollow() => GameManager.isRunning && !PlayerController.I.isInSafeZone && canFollow && isAlive && _targetPlayerMobBase != null;
     
     private void Update()
     {
         if (IsAbleToFollow())
         {
-            _targetPlayerBase = FindTargetPlayer();
+            
             rb.transform.position += rb.transform.forward * (Time.deltaTime * Speed);
-            rb.transform.SlowLookAt(PlayerController.I.GetPlayerTransform(), 8f);
+            rb.transform.SlowLookAt(_targetPlayerMobBase.transform.position, 8f);
         }
     }
     
@@ -135,14 +134,18 @@ public abstract class EnemyBase : PoolObject
     {
         if (!lsPlayersInTriggerZone.Contains(pmb))
             lsPlayersInTriggerZone.Add(pmb);
-
+        
         if(lsPlayersInTriggerZone.Count >= 1)
         {
-            canFollow = true;
-            AnimState = AnimationStates.Run;
+           
+            _targetPlayerMobBase = FindTargetPlayer();
+            if (_targetPlayerMobBase != null)
+            {
+                canFollow = true;
+                AnimState = AnimationStates.Run;
+            }
+            
         }
-        
-
     }
 
     public virtual void OnPlayerExitRange(PlayerMobBase pmb)

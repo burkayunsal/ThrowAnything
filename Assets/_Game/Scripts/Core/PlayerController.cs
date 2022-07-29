@@ -52,9 +52,9 @@ public class PlayerController : Singleton<PlayerController>
 
     private void Start()
     {
-        PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.BigBoi);
-        PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.BigBoi);
-        PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.BigBoi);
+        PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.Standart);
+        PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.Standart);
+        PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.Standart);
     }
 
     public void SetRoad(Path newRoad)

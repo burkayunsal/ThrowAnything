@@ -3,6 +3,7 @@ public class TrollEnemyBase : EnemyBase
 {
     public override void InitEnemies()
     {
+        initialColor = GetRenderer().material.color;
         HP = Configs.Enemy.TrollEnemySettings.maxHP;
         DetectorRange = Configs.Enemy.TrollEnemySettings.range;
         Damage =Configs.Enemy.TrollEnemySettings.damage;
@@ -21,6 +22,8 @@ public class TrollEnemyBase : EnemyBase
 
     public override void OnSpawn()
     {
+        
+        InitEnemies();
         gameObject.SetActive(true);
         if (hasInitialized)
             ResetMe();

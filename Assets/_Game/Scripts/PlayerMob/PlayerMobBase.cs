@@ -234,11 +234,9 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
 
     public Vector3 CalculateThrowForce()
     {
-        Vector3 forceVector, forceDirection;
-
-        forceDirection = _targetEnemyBase.transform.position;// - transform.position;
-            forceVector = forceDirection;//.normalized * Configs.Player.throwForce;
-            
+        Vector3 forceVector;
+        
+        forceVector = _targetEnemyBase.transform.position;
         return forceVector;
     }
 
