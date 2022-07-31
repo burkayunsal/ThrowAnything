@@ -15,12 +15,13 @@ public class Path : MonoBehaviour
 
     [Range(2,20)][SerializeField] float spawnEnemyInterval;
 
-    public Transform safeZoneEnterPoint, safeZoneExitPoint, respawnPoint;
+    public Transform safeZoneEnterPoint, safeZoneExitPoint, respawnPoint,upgradeZonePoint;
 
     private void Start()
     {
-        respawnPoint.position =road.Interpolate(Configs.PathConfigs.respawnPoint).WithY(3);
-        
+        respawnPoint.position = road.Interpolate(Configs.PathConfigs.respawnPoint).WithY(3f);
+        upgradeZonePoint.position = road.Interpolate(Configs.PathConfigs.upgradeZoneEnter).WithY(.5f);
+
         EnemySpawner.I.CreateSpawnPool(spawnRules);
         SetSafeZone();
     }
@@ -98,9 +99,6 @@ public class Path : MonoBehaviour
         EnemySpawner.I.ClearAllEnemies();
         SetEnemyPositions();
     }
-
-    
-    
 
     public SpawnRule spawnRules;
     [System.Serializable]

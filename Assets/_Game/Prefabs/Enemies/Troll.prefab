@@ -567,7 +567,10 @@ MonoBehaviour:
   rb: {fileID: 2480105459890412495}
   anim: {fileID: 2480105459890412493}
   rd: {fileID: 5573539429123434142}
+  coin: {fileID: -1984069939785206872, guid: 658b557b3b37cd04da7ded22515e64a0, type: 3}
+  coinAmount: 3
   detector: {fileID: 8970001350298581186}
+  initialColor: {r: 0, g: 0, b: 0, a: 0}
   Damage: 70
   AttackSpeed: 2
 --- !u!136 &3977026183675777353

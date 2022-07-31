@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using FluffyUnderware.DevTools;
 using SBF.Extentions.Transforms;
 using SBF.Extentions.Vector;
+using Unity.Mathematics;
 using UnityEngine;
 
 public abstract class EnemyBase : PoolObject
@@ -12,6 +13,10 @@ public abstract class EnemyBase : PoolObject
     [SerializeField] Rigidbody rb;
     [SerializeField] Animator anim;
     [SerializeField] Renderer rd;
+
+    public Coin coin;
+    public int coinAmount;
+    
     public Renderer GetRenderer() => rd;
     [SerializeField] EnemyPlayerDetector detector;
 
@@ -109,10 +114,11 @@ public abstract class EnemyBase : PoolObject
         transform.SetParent(null);
         canFollow = false;
         ChangeColor(Color.gray);
-        AnimState = AnimationStates.Idle;
-        //Ragdoll a gir
         
-        //OnDeactivate();
+        anim.applyRootMotion = true;
+        anim.SetTrigger("Death");
+        //Ragdoll a gir
+       GiveCoin();
     }
 
     public abstract void InitEnemies();
@@ -194,6 +200,19 @@ public abstract class EnemyBase : PoolObject
         }
         
         return pmb;
+    }
+
+    void GiveCoin()
+    {
+        for (int i = 0; i < coinAmount; i++)
+        {
+            var currentCoin = Instantiate(coin, transform.position,quaternion.identity);
+            var pos = currentCoin.transform.position;
+            pos.y = 1.5f;
+            currentCoin.transform.position =pos;
+            
+            currentCoin.CoinMovement();
+        }
     }
 
 }

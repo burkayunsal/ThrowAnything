@@ -11,6 +11,7 @@ TagManager:
   - ExitGate
   - EnterGate
   - Plane
+  - UpgradeZone
   layers:
   - Default
   - TransparentFX

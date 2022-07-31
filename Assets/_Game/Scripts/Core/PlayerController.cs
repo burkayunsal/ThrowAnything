@@ -62,7 +62,9 @@ public class PlayerController : Singleton<PlayerController>
         crntRoad = newRoad;
         spline.Spline = crntRoad.GetRoad();
 
-        spline.AbsolutePosition = 5f;
+        spline.AbsolutePosition = 25f;
+        
+        Debug.Log(spline.AbsolutePosition);
 
         CurvySplineMoveEvent curvySplineMoveEvent = new CurvySplineMoveEvent();
         curvySplineMoveEvent.AddListener(OnRoadCompleted);

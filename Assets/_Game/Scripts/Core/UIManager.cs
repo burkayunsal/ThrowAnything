@@ -43,6 +43,15 @@ public class UIManager : Singleton<UIManager>
         FadeInAndOutPanels(pnl.gameIn);
     }
 
+    public void OpenUpgradePopup()
+    {
+        FadeInAndOutPanels(pnl.upgrade);
+    }   
+    public void CloseUpgradePopup()
+    {
+        ClosePanel(pnl.upgrade);
+    }  
+    
     public void OnFail()
     {
         FadeInAndOutPanels(pnl.fail);
@@ -148,6 +157,14 @@ public class UIManager : Singleton<UIManager>
        
        
     }
+    
+    void ClosePanel(CanvasGroup _panel)
+    {
+        _panel.interactable = false;
+        _panel.blocksRaycasts = false;
+
+        _panel.DOFade(0f, Configs.UI.FadeOutTime);
+    }
 
     public void ShowJoystickHighlights(int area)
     {
@@ -178,7 +195,7 @@ public class UIManager : Singleton<UIManager>
     [System.Serializable]
     public class Panels
     {
-        public CanvasGroup mainMenu, gameIn, success, fail;
+        public CanvasGroup mainMenu, gameIn, success, fail, upgrade;
     }
 
     [System.Serializable]
@@ -186,6 +203,7 @@ public class UIManager : Singleton<UIManager>
     {
         public Image taptoStart;
         public Image[] joystickHighlights, vibrations;
+        public Image upgradeTimer;
     }
 
     [System.Serializable]
@@ -199,4 +217,6 @@ public class UIManager : Singleton<UIManager>
     {
         public TextMeshProUGUI level;
     }
+    
+   
 }

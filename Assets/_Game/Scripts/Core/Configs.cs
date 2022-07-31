@@ -25,7 +25,8 @@
 
     public static class PathConfigs
     {
-        public const float respawnPoint = .92f;
+        public const float respawnPoint = .9f;
+        public const float upgradeZoneEnter = .94f;
     }
 
 
@@ -55,5 +56,6 @@
     public static class UI
     {
         public static float FadeOutTime = .2f;
+        public static float UpgradePopUpTimer = 2f;
     }
 }
