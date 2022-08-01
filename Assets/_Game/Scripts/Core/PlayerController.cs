@@ -61,17 +61,17 @@ public class PlayerController : Singleton<PlayerController>
     {
         crntRoad = newRoad;
         spline.Spline = crntRoad.GetRoad();
-
-        spline.AbsolutePosition = 25f;
-        
-        Debug.Log(spline.AbsolutePosition);
+        spline.PositionMode = CurvyPositionMode.Relative;
+        spline.Position = 0.10f;
 
         CurvySplineMoveEvent curvySplineMoveEvent = new CurvySplineMoveEvent();
         curvySplineMoveEvent.AddListener(OnRoadCompleted);
-
+        
         spline.OnEndReached = curvySplineMoveEvent;
 
         CameraController.I.Init();
+        EnvironmentHandler.I.SetRecruitZonePosition(crntRoad);
+        EnvironmentHandler.I.SetUpgradeZonePosition(crntRoad);
     }
  
 

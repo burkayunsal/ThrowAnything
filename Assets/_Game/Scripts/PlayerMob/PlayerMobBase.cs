@@ -68,8 +68,6 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
         shootTimer = ShootInterval();
     }
 
-    
-
     void AssignEvents()
     {
         PlayerController.I.AddNewMob(this);

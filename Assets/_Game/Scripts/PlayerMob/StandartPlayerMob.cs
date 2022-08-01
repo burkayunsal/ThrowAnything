@@ -15,25 +15,31 @@ public class StandartPlayerMob : PlayerMobBase
 
     public override void OnStart()
     {
-        DetectorRange = Configs.Player.StandartMobSettings.detectorRange;
-        HP = Configs.Player.StandartMobSettings.maxHP;
+        InitPlayer();
     }
 
     public override void ThrowAnything()
     {
         Anything a = PoolManager.I.GetObject<Anything>();
-        a.damaage = Configs.Player.StandartMobSettings.damage;
+        a.damaage = Damage();
         a.transform.position = HandPoint.position;
         a.Throw(CalculateThrowForce());
     }
 
     public override float ShootInterval()
     {
-        return Configs.Player.StandartMobSettings.shootInterval;
+        return Configs.Player.StandartMobSettings.shootInterval+ Configs.UpgradePlayer.damageChange[SaveLoadManager.GetAttackSpeedLevel()];;
     }
 
     public override float Damage()
     {
-        return Configs.Player.StandartMobSettings.damage;
+        return Configs.Player.StandartMobSettings.damage ;
+        // + Configs.UpgradePlayer.damageChange[SaveLoadManager.GetDamageLevel()]
+    }
+
+    public void InitPlayer()
+    {
+        HP = Configs.Player.StandartMobSettings.maxHP;
+        DetectorRange = Configs.Player.StandartMobSettings.detectorRange ;
     }
 }

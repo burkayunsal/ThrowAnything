@@ -4,6 +4,7 @@ using UnityEngine;
 using SBF.Extentions.Transforms;
 using SBF.Extentions.Vector;
 using UnityEngine.Serialization;
+using MyBox;
 
 public class Path : MonoBehaviour
 {
@@ -15,12 +16,21 @@ public class Path : MonoBehaviour
 
     [Range(2,20)][SerializeField] float spawnEnemyInterval;
 
-    public Transform safeZoneEnterPoint, safeZoneExitPoint, respawnPoint,upgradeZonePoint;
+    public Transform safeZoneEnterPoint, safeZoneExitPoint, respawnPoint;
+
+    public bool useRecruitZone;
+    [ConditionalField(nameof(useRecruitZone),false)]
+    [Range(0,1f)]
+    public float recruitZoneSplinePos;
+    
+    public bool useUpgradeZone;
+    [ConditionalField(nameof(useUpgradeZone),false)]
+    [Range(0,1f)]
+    public float upgradeZoneSplinePos;
 
     private void Start()
     {
         respawnPoint.position = road.Interpolate(Configs.PathConfigs.respawnPoint).WithY(3f);
-        upgradeZonePoint.position = road.Interpolate(Configs.PathConfigs.upgradeZoneEnter).WithY(.5f);
 
         EnemySpawner.I.CreateSpawnPool(spawnRules);
         SetSafeZone();
@@ -39,7 +49,6 @@ public class Path : MonoBehaviour
             enemyBase = EnemySpawner.I.SpawnEnemies();
 
             enemyBase.transform.position = (road.InterpolateByDistance(startFrom + (i * spawnEnemyInterval)).GetPointAround(Vector3.up, Random.Range(0f, 360f), Random.Range(5f, 10f), false)).WithY(0) ;
-            
         }
 
     }
@@ -68,7 +77,9 @@ public class Path : MonoBehaviour
     {
         EnvironmentHandler.I.ground.transform.position = (safeZoneEnterPoint.position + safeZoneExitPoint.position).WithY(-1f) / 2f;
         EnvironmentHandler.I.ground.transform.rotation = Quaternion.Euler(Vector3.up * angle);
+        
     }
+    
 
     float CalculateAngle()
     {

@@ -120,11 +120,12 @@ public class TouchHandler : Singleton<TouchHandler>
     #region CORE
 
 
-    void CoreDown()
+    public void CoreDown()
     {
         PlayerController.I.StartMove();
     }
-    void CoreUp()
+    
+    public void CoreUp()
     {
         PlayerController.I.StopMove();
     }

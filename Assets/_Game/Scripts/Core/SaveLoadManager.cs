@@ -10,12 +10,19 @@ public class SaveLoadManager : MonoBehaviour
     public static int GetLevel() => PlayerPrefs.GetInt(KEY_LEVEL, 0);
 
     #endregion
+    
 
     #region COIN
 
     const string KEY_COIN = "coins";
 
-    public static void AddCoin(int add) => PlayerPrefs.SetInt(KEY_COIN, GetCoin() + add);
+    public static void AddCoin(int add)
+    {
+        PlayerPrefs.SetInt(KEY_COIN, GetCoin() + add);
+        UIManager.I.UpdateCoin();
+
+    }
+
     public static int GetCoin() => PlayerPrefs.GetInt(KEY_COIN, 0);
 
     #endregion
@@ -41,4 +48,21 @@ public class SaveLoadManager : MonoBehaviour
     public static void SetPrizeTaken(int id) => PlayerPrefs.SetInt(KEY_PRIZES + id, 1);
 
     #endregion
+
+    
+    #region ATTACK_SPEED
+
+    const string KEY_AS = "attackSpeed";
+
+    public static void IncrementAttackSpeed()
+    {
+        PlayerPrefs.SetInt(KEY_AS, GetAttackSpeedLevel() + 1);
+        //TODO Init plkayers again
+    }
+    
+    public static int GetAttackSpeedLevel() => PlayerPrefs.GetInt(KEY_AS, 0);
+
+    #endregion
+
+ 
 }

@@ -3,7 +3,7 @@ public class BarbarianEnemyBase : EnemyBase
 {
     public override void InitEnemies()
     {
-        
+        hasInitialized = true;
         initialColor = GetRenderer().material.color;
         HP = Configs.Enemy.BarbarianEnemySettings.maxHP;
         DetectorRange = Configs.Enemy.BarbarianEnemySettings.range;
@@ -11,10 +11,6 @@ public class BarbarianEnemyBase : EnemyBase
         AttackSpeed = Configs.Enemy.BarbarianEnemySettings.attackSpeed;
     }
     
-    public override void DieMF()
-    {
-        base.DieMF();
-    }
 
     private bool hasInitialized = false;
     public override void OnDeactivate()
@@ -24,12 +20,11 @@ public class BarbarianEnemyBase : EnemyBase
 
     public override void OnSpawn()
     {
-        InitEnemies();
         gameObject.SetActive(true);
         if (hasInitialized)
             ResetMe();
         else
-            hasInitialized = true;
+            InitEnemies();
     }
 
     public override void ResetMe()

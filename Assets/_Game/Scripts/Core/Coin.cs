@@ -13,8 +13,8 @@ public class Coin : MonoBehaviour
           transform.parent = GameObject.FindWithTag("PlayerParent").transform;
           transform.DOLocalMove(new Vector3(0,.5f,0),.3f).SetDelay(.05f).SetEase(Ease.Linear).OnComplete(() =>
           {
-              // MONEY AMOUNT INCREASE in UI
               Destroy(gameObject);
+              SaveLoadManager.AddCoin(1);
           });
       });
   }

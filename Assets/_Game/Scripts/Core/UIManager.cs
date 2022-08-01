@@ -41,11 +41,24 @@ public class UIManager : Singleton<UIManager>
     public void OnGameStarted()
     {
         FadeInAndOutPanels(pnl.gameIn);
+        ClosePanel(pnl.recruit);
+        ClosePanel(pnl.upgrade);
     }
 
+    public void OpenRecruitPopup()
+    {
+        FadeInAndOutPanels(pnl.recruit,false);
+        TouchHandler.I.Enable(false);
+    }   
+    public void CloseRecruitPopup()
+    {
+        ClosePanel(pnl.recruit);
+        TouchHandler.I.Enable(true);
+    }  
+    
     public void OpenUpgradePopup()
     {
-        FadeInAndOutPanels(pnl.upgrade);
+        FadeInAndOutPanels(pnl.upgrade, false);
     }   
     public void CloseUpgradePopup()
     {
@@ -127,12 +140,14 @@ public class UIManager : Singleton<UIManager>
         GameManager.ReloadScene(isSuccess);
     }
 
-    void FadeInAndOutPanels(CanvasGroup _in)
+    void FadeInAndOutPanels(CanvasGroup _in, bool setAsActive = true)
     {
         CanvasGroup _out = activePanel;
-        activePanel = _in;
+        
+        if(setAsActive)
+            activePanel = _in;
 
-        if(_out != null)
+        if(_out != null && setAsActive)
         {
             _out.interactable = false;
             _out.blocksRaycasts = false;
@@ -177,6 +192,12 @@ public class UIManager : Singleton<UIManager>
     public void UpdateTexts()
     {
         txt.level.text = "LEVEL " + (SaveLoadManager.GetLevel() + 1).ToString();
+        UpdateCoin();
+    }
+
+    public void UpdateCoin()
+    {
+        txt.coin.text = "Coin " +  SaveLoadManager.GetCoin().ToString("000");
     }
 
     public void UpdateHapticStatus()
@@ -195,7 +216,7 @@ public class UIManager : Singleton<UIManager>
     [System.Serializable]
     public class Panels
     {
-        public CanvasGroup mainMenu, gameIn, success, fail, upgrade;
+        public CanvasGroup mainMenu, gameIn, success, fail, upgrade, recruit;
     }
 
     [System.Serializable]
@@ -215,7 +236,7 @@ public class UIManager : Singleton<UIManager>
     [System.Serializable]
     public class Texts
     {
-        public TextMeshProUGUI level;
+        public TextMeshProUGUI level, coin;
     }
     
    

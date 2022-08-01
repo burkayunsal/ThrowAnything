@@ -3,6 +3,7 @@ public class TrollEnemyBase : EnemyBase
 {
     public override void InitEnemies()
     {
+        hasInitialized = true;
         initialColor = GetRenderer().material.color;
         HP = Configs.Enemy.TrollEnemySettings.maxHP;
         DetectorRange = Configs.Enemy.TrollEnemySettings.range;
@@ -10,11 +11,7 @@ public class TrollEnemyBase : EnemyBase
         AttackSpeed = Configs.Enemy.TrollEnemySettings.attackSpeed;
     }
     private bool hasInitialized = false;
-    public override void DieMF()
-    {
-        base.DieMF();
-    }
-
+  
     public override void OnDeactivate()
     {
         gameObject.SetActive(false);
@@ -22,13 +19,12 @@ public class TrollEnemyBase : EnemyBase
 
     public override void OnSpawn()
     {
-        
-        InitEnemies();
         gameObject.SetActive(true);
         if (hasInitialized)
             ResetMe();
         else
-            hasInitialized = true;
+            InitEnemies();
+           
     }
 
     public override void ResetMe()

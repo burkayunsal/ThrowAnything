@@ -24,7 +24,7 @@ public abstract class EnemyBase : PoolObject
     PlayerMobBase _targetPlayerMobBase;
 
     //public PlayerMobBase GetTargetPlayer() => _targetPlayerMobBase;
-    [HideInInspector]
+   // [HideInInspector]
     public Color initialColor;
     
     public float Damage;
@@ -94,6 +94,7 @@ public abstract class EnemyBase : PoolObject
     public virtual void ResetMe()
     {
         SetInitialColor();
+        anim.applyRootMotion = false;
         canFollow = false;
         AnimState = AnimationStates.Idle;
         //Ragdoll u kapat;
@@ -111,10 +112,11 @@ public abstract class EnemyBase : PoolObject
     
     public virtual void DieMF()
     {
+        if(!canFollow) return;
+        
         transform.SetParent(null);
         canFollow = false;
         ChangeColor(Color.gray);
-        
         anim.applyRootMotion = true;
         anim.SetTrigger("Death");
         //Ragdoll a gir
@@ -129,7 +131,6 @@ public abstract class EnemyBase : PoolObject
     {
         if (IsAbleToFollow())
         {
-            
             rb.transform.position += rb.transform.forward * (Time.deltaTime * Speed);
             rb.transform.SlowLookAt(_targetPlayerMobBase.transform.position, 8f);
         }
