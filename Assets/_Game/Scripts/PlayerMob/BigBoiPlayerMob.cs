@@ -28,19 +28,17 @@ public class BigBoiPlayerMob : PlayerMobBase
 
     public override float ShootInterval()
     {
-        return Configs.Player.BigBoiMobSettings.shootInterval;
+        return Configs.Player.BigBoiMobSettings.shootInterval + Configs.UpgradePlayer.shootIntervalChange[SaveLoadManager.GetAttackSpeedLevel()];
     }
 
     public override float Damage()
     {
-        return Configs.Player.BigBoiMobSettings.damage;
+        return Configs.Player.BigBoiMobSettings.damage + Configs.UpgradePlayer.damageChange[SaveLoadManager.GetDamageLevel()];
     }
     
     public void InitPlayer()
     {
-        DetectorRange = Configs.Player.BigBoiMobSettings.detectorRange;
-        HP = Configs.Player.BigBoiMobSettings.maxHP;
-        ShootInterval();
-        Damage();
+        DetectorRange = Configs.Player.BigBoiMobSettings.detectorRange + Configs.UpgradePlayer.detectorRangeChange[SaveLoadManager.GetRangeLevel()];
+        HP = Configs.Player.BigBoiMobSettings.maxHP+ Configs.UpgradePlayer.maxHPChange[SaveLoadManager.GetHPLevel()];
     }
 }

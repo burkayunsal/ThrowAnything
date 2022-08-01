@@ -64,5 +64,45 @@ public class SaveLoadManager : MonoBehaviour
 
     #endregion
 
- 
+    #region DAMAGE
+
+    const string KEY_DMG = "damage";
+
+    public static void IncrementDamage()
+    {
+        PlayerPrefs.SetInt(KEY_DMG, GetDamageLevel() + 1);
+        //TODO Init plkayers again
+    }
+    
+    public static int GetDamageLevel() => PlayerPrefs.GetInt(KEY_DMG, 0);
+
+    #endregion
+    
+    #region HP
+
+    const string KEY_HP = "hp";
+
+    public static void IncrementHP()
+    {
+        PlayerPrefs.SetInt(KEY_HP, GetHPLevel() + 1);
+        //TODO Init plkayers again
+    }
+    
+    public static int GetHPLevel() => PlayerPrefs.GetInt(KEY_HP, 0);
+
+    #endregion
+    
+    #region RANGE
+
+    const string KEY_RNG = "hp";
+
+    public static void IncrementRange()
+    {
+        PlayerPrefs.SetInt(KEY_RNG, GetRangeLevel() + 1);
+        //TODO Init plkayers again
+    }
+    
+    public static int GetRangeLevel() => PlayerPrefs.GetInt(KEY_RNG, 0);
+
+    #endregion
 }

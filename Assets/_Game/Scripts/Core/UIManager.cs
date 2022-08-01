@@ -59,10 +59,12 @@ public class UIManager : Singleton<UIManager>
     public void OpenUpgradePopup()
     {
         FadeInAndOutPanels(pnl.upgrade, false);
+        TouchHandler.I.Enable(false);
     }   
     public void CloseUpgradePopup()
     {
         ClosePanel(pnl.upgrade);
+        TouchHandler.I.Enable(true);
     }  
     
     public void OnFail()

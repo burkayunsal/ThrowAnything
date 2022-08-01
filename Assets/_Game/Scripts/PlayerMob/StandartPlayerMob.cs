@@ -28,18 +28,18 @@ public class StandartPlayerMob : PlayerMobBase
 
     public override float ShootInterval()
     {
-        return Configs.Player.StandartMobSettings.shootInterval+ Configs.UpgradePlayer.damageChange[SaveLoadManager.GetAttackSpeedLevel()];;
+        return Configs.Player.StandartMobSettings.shootInterval + Configs.UpgradePlayer.shootIntervalChange[SaveLoadManager.GetAttackSpeedLevel()];
     }
 
     public override float Damage()
     {
-        return Configs.Player.StandartMobSettings.damage ;
-        // + Configs.UpgradePlayer.damageChange[SaveLoadManager.GetDamageLevel()]
+        return Configs.Player.StandartMobSettings.damage + Configs.UpgradePlayer.damageChange[SaveLoadManager.GetDamageLevel()];
+         
     }
 
     public void InitPlayer()
     {
-        HP = Configs.Player.StandartMobSettings.maxHP;
-        DetectorRange = Configs.Player.StandartMobSettings.detectorRange ;
+        HP = Configs.Player.StandartMobSettings.maxHP + Configs.UpgradePlayer.maxHPChange[SaveLoadManager.GetHPLevel()];
+        DetectorRange = Configs.Player.StandartMobSettings.detectorRange + Configs.UpgradePlayer.detectorRangeChange[SaveLoadManager.GetRangeLevel()];
     }
 }
