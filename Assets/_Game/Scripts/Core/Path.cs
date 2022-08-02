@@ -77,7 +77,6 @@ public class Path : MonoBehaviour
     {
         EnvironmentHandler.I.ground.transform.position = (safeZoneEnterPoint.position + safeZoneExitPoint.position).WithY(-1f) / 2f;
         EnvironmentHandler.I.ground.transform.rotation = Quaternion.Euler(Vector3.up * angle);
-        
     }
     
 

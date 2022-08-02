@@ -28,7 +28,7 @@ public class StandartPlayerMob : PlayerMobBase
 
     public override float ShootInterval()
     {
-        return Configs.Player.StandartMobSettings.shootInterval + Configs.UpgradePlayer.shootIntervalChange[SaveLoadManager.GetAttackSpeedLevel()];
+        return Configs.Player.StandartMobSettings.shootInterval - Configs.UpgradePlayer.shootIntervalChange[SaveLoadManager.GetAttackSpeedLevel()];
     }
 
     public override float Damage()
@@ -37,7 +37,7 @@ public class StandartPlayerMob : PlayerMobBase
          
     }
 
-    public void InitPlayer()
+    public override void InitPlayer()
     {
         HP = Configs.Player.StandartMobSettings.maxHP + Configs.UpgradePlayer.maxHPChange[SaveLoadManager.GetHPLevel()];
         DetectorRange = Configs.Player.StandartMobSettings.detectorRange + Configs.UpgradePlayer.detectorRangeChange[SaveLoadManager.GetRangeLevel()];

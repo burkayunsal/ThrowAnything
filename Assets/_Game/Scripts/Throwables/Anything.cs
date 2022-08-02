@@ -27,7 +27,7 @@ public class Anything : PoolObject
     public void Throw(Vector3 v)
     {
         rb.transform.LookAt(v);
-        rb.AddForce(rb.transform.forward * v.magnitude / 2f + Vector3.up * 3f, ForceMode.Impulse);
+        rb.AddForce(rb.transform.forward * v.magnitude / 3f + Vector3.up * 5f, ForceMode.Impulse);
     }
 
     private void ShowRandomAnything()

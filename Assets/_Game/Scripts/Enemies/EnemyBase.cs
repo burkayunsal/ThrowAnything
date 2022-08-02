@@ -17,6 +17,8 @@ public abstract class EnemyBase : PoolObject
     public Coin coin;
     public int coinAmount;
     
+    public Animator GetAnimator() => anim;
+    
     public Renderer GetRenderer() => rd;
     [SerializeField] EnemyPlayerDetector detector;
 
@@ -26,10 +28,10 @@ public abstract class EnemyBase : PoolObject
     //public PlayerMobBase GetTargetPlayer() => _targetPlayerMobBase;
    // [HideInInspector]
     public Color initialColor;
-    
-    public float Damage;
-    public float AttackSpeed;
 
+    delegate void OnUpdate();
+    OnUpdate onUpdate;
+    
     float Speed => Configs.Enemy.speed;
 
     bool canFollow = false;
@@ -97,6 +99,7 @@ public abstract class EnemyBase : PoolObject
         anim.applyRootMotion = false;
         canFollow = false;
         AnimState = AnimationStates.Idle;
+        onUpdate = FollowPlayer;
         //Ragdoll u kapat;
     }
    
@@ -119,24 +122,67 @@ public abstract class EnemyBase : PoolObject
         ChangeColor(Color.gray);
         anim.applyRootMotion = true;
         anim.SetTrigger("Death");
-        //Ragdoll a gir
-       GiveCoin();
+        GiveCoin();
+       
+       //Ragdoll a gir
+
     }
 
-    public abstract void InitEnemies();
+    public virtual void InitEnemies()
+    {
+        onUpdate = FollowPlayer;
+    }
 
     bool IsAbleToFollow() => GameManager.isRunning && !PlayerController.I.isInSafeZone && canFollow && isAlive && _targetPlayerMobBase != null;
     
     private void Update()
     {
+       onUpdate?.Invoke();
+    }
+
+    void FollowPlayer()
+    {
         if (IsAbleToFollow())
         {
             rb.transform.position += rb.transform.forward * (Time.deltaTime * Speed);
             rb.transform.SlowLookAt(_targetPlayerMobBase.transform.position, 8f);
+
+            float distance = Vector3.Distance(_targetPlayerMobBase.transform.position, rb.transform.position);
+            
+            if (distance <= 1f)
+            {
+                onUpdate = AttackPlayer;
+                AnimState = AnimationStates.Idle;
+            }
+        }
+    }
+
+    void AttackPlayer()
+    {
+        HandleShootingTimer();
+        
+        float distance = Vector3.Distance(_targetPlayerMobBase.transform.position, rb.transform.position);
+            
+        if (distance > 1.1f)
+        {
+            onUpdate = FollowPlayer;
+            AnimState = AnimationStates.Run;
         }
     }
     
+    float shootTimer = 0f;
 
+    void HandleShootingTimer()
+    {
+        shootTimer += Time.deltaTime;
+        
+        if(shootTimer >= SetShootInterval())
+        {
+            Attack();
+            shootTimer = 0f;
+        }
+    }
+    
     public virtual void OnPlayerEnterRange(PlayerMobBase pmb)
     {
         if (!lsPlayersInTriggerZone.Contains(pmb))
@@ -205,7 +251,7 @@ public abstract class EnemyBase : PoolObject
 
     void GiveCoin()
     {
-        for (int i = 0; i < coinAmount; i++)
+        for (int i = 0; i < coinAmount * 10; i++)
         {
             var currentCoin = Instantiate(coin, transform.position,quaternion.identity);
             var pos = currentCoin.transform.position;
@@ -215,5 +261,10 @@ public abstract class EnemyBase : PoolObject
             currentCoin.CoinMovement();
         }
     }
+    
+    public abstract void Attack();
+    public abstract float SetShootInterval();
+    public abstract float SetDamage();
+
 
 }

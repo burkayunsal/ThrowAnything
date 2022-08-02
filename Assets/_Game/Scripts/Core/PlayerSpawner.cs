@@ -21,12 +21,27 @@ public class PlayerSpawner : Singleton<PlayerSpawner>
         PlayerMobBase pmb = Instantiate(playerPrefabs[(int)pt]);
         lsAllPlayers.Add(pmb);
     }
+    
+    public void SpawnPlayerMob(int id)
+    {
+        PlayerMobBase pmb = Instantiate(playerPrefabs[id]);
+        lsAllPlayers.Add(pmb);
+    }
+    
 
     public void StopShooting()
     {
         foreach (PlayerMobBase pmb in lsAllPlayers)
         {
             pmb.StopShooting();
+        }
+    }
+
+    public void ReInitPlayers()
+    {
+        foreach (PlayerMobBase pm in lsAllPlayers)
+        {
+            pm.InitPlayer();
         }
     }
     

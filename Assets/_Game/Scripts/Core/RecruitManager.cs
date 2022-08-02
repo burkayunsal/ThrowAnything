@@ -40,6 +40,7 @@ public class RecruitManager : MonoBehaviour
         {
             SaveLoadManager.AddCoin(-costs[_id]);
             PlayerSpawner.I.SpawnPlayerMob(_type);
+            PlayerController.I.AddToSavedList(_id);
         }
     }
     

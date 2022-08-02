@@ -797,6 +797,7 @@ MonoBehaviour:
   anim: {fileID: 5877650290391478225}
   detector: {fileID: 5877650289583903619}
   HandPoint: {fileID: 368018414868813395}
+  pType: 1
 --- !u!136 &-4493459325208929012
 CapsuleCollider:
   m_ObjectHideFlags: 0

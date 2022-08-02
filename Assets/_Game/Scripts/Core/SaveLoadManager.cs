@@ -57,8 +57,7 @@ public class SaveLoadManager : MonoBehaviour
     public static void IncrementAttackSpeed()
     {
         PlayerPrefs.SetInt(KEY_AS, GetAttackSpeedLevel() + 1);
-        //TODO Init plkayers again
-    }
+        PlayerSpawner.I.ReInitPlayers();    }
     
     public static int GetAttackSpeedLevel() => PlayerPrefs.GetInt(KEY_AS, 0);
 
@@ -71,8 +70,7 @@ public class SaveLoadManager : MonoBehaviour
     public static void IncrementDamage()
     {
         PlayerPrefs.SetInt(KEY_DMG, GetDamageLevel() + 1);
-        //TODO Init plkayers again
-    }
+        PlayerSpawner.I.ReInitPlayers();    }
     
     public static int GetDamageLevel() => PlayerPrefs.GetInt(KEY_DMG, 0);
 
@@ -85,7 +83,7 @@ public class SaveLoadManager : MonoBehaviour
     public static void IncrementHP()
     {
         PlayerPrefs.SetInt(KEY_HP, GetHPLevel() + 1);
-        //TODO Init plkayers again
+        PlayerSpawner.I.ReInitPlayers();
     }
     
     public static int GetHPLevel() => PlayerPrefs.GetInt(KEY_HP, 0);
@@ -94,15 +92,43 @@ public class SaveLoadManager : MonoBehaviour
     
     #region RANGE
 
-    const string KEY_RNG = "hp";
+    const string KEY_RNG = "range";
 
     public static void IncrementRange()
     {
         PlayerPrefs.SetInt(KEY_RNG, GetRangeLevel() + 1);
-        //TODO Init plkayers again
-    }
+        PlayerSpawner.I.ReInitPlayers();    }
     
     public static int GetRangeLevel() => PlayerPrefs.GetInt(KEY_RNG, 0);
+
+    #endregion
+
+    #region Chars
+
+    const string KEY_CHARS = "jhgasdgjhasdghjasd";
+    
+    public static void SetChars(int[] chars)
+    {
+        string str = "";
+        for (int i = 0; i < chars.Length; i++)
+        {
+            str += chars[i];
+            if (i != chars.Length - 1) str += ",";
+        }
+        PlayerPrefs.SetString(KEY_CHARS, str);
+    }
+    
+    public static int[] GetChars()
+    {
+        string str = PlayerPrefs.GetString(KEY_CHARS, "0");
+        string[] strs = str.Split(',');
+        int[] chars = new int[strs.Length];
+        for (int i = 0; i < strs.Length; i++)
+        {
+            chars[i] = int.Parse(strs[i]);
+        }
+        return chars;
+    }
 
     #endregion
 }

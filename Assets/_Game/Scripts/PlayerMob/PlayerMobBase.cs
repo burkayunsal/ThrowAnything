@@ -20,7 +20,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     EnemyBase _targetEnemyBase;
 
     [SerializeField] public Transform HandPoint;
-    
+    public PlayerTypes pType;
     public EnemyBase GetTargetEnemy() => _targetEnemyBase;
 
     float _detectorRange;
@@ -88,6 +88,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     void OnDeath()
     {
         PlayerController.I.RemovePlayer(this);
+        
     }
 
     public virtual void OnEnemyEnterRange(EnemyBase e)
@@ -243,6 +244,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     public abstract float ShootInterval();
     
     public abstract float Damage();
+    public abstract void InitPlayer();
 
 
 }

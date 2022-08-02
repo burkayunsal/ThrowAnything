@@ -50,11 +50,35 @@ public class PlayerController : Singleton<PlayerController>
         //go.transform.position = v;
     }
 
+    [SerializeField] private List<int> lsSavedChars = new List<int>();
     private void Start()
     {
-        PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.Standart);
-        PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.Standart);
-        PlayerSpawner.I.SpawnPlayerMob(PlayerTypes.Standart);
+       SpawnSavedChars();
+    }
+
+    void SpawnSavedChars()
+    {
+        int[] charArr = SaveLoadManager.GetChars();
+        
+        lsSavedChars.AddRange(charArr);
+
+        for (int i = 0; i < charArr.Length; i++)
+        {
+            PlayerSpawner.I.SpawnPlayerMob(charArr[i]);
+        }
+    }
+
+    public void AddToSavedList(int i)
+    {
+        lsSavedChars.Add(i);
+        SaveLoadManager.SetChars(lsSavedChars.ToArray());
+    }
+    
+    
+    public void RemoveFromSavedList(int i)
+    {
+        lsSavedChars.Remove(i);
+        SaveLoadManager.SetChars(lsSavedChars.ToArray());
     }
 
     public void SetRoad(Path newRoad)
@@ -106,7 +130,7 @@ public class PlayerController : Singleton<PlayerController>
         lsMobs.Remove(pmb);
         onAnimChanged -= pmb.ChangeAnimationState;
         pmb.transform.SetParent(null);
-
+        RemoveFromSavedList((int)pmb.pType);
         RepositionMobs();
     }
 

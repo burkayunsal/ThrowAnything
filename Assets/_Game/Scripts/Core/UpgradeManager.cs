@@ -8,7 +8,9 @@ using UnityEngine.UI;
 
 public class UpgradeManager : MonoBehaviour
 {
-    public TextMeshProUGUI[] txt;
+    public TextMeshProUGUI[] txtCost;
+    
+    public TextMeshProUGUI[] txtLevel;
     
     [Header("UI")] 
     [SerializeField] private Image filledIMG;
@@ -40,7 +42,8 @@ public class UpgradeManager : MonoBehaviour
         {
             SaveLoadManager.AddCoin(- Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetHPLevel()]);
             SaveLoadManager.IncrementHP();
-            txt[0].SetText("$" + Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetHPLevel()]);
+            txtCost[0].SetText("$" + Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetHPLevel()]);
+            txtLevel[0].SetText("Level " + Configs.UpgradePlayer.upgradeLevels[SaveLoadManager.GetHPLevel()]);
         }
     }
 
@@ -50,7 +53,8 @@ public class UpgradeManager : MonoBehaviour
         {
             SaveLoadManager.AddCoin(- Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetDamageLevel()]);
             SaveLoadManager.IncrementDamage();
-            txt[1].SetText("$" + Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetDamageLevel()]);
+            txtCost[1].SetText("$" + Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetDamageLevel()]);
+            txtLevel[1].SetText("Level " + Configs.UpgradePlayer.upgradeLevels[SaveLoadManager.GetDamageLevel()]);
         }
     } 
    
@@ -60,8 +64,9 @@ public class UpgradeManager : MonoBehaviour
         {
             SaveLoadManager.AddCoin(- Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetAttackSpeedLevel()]);
             SaveLoadManager.IncrementAttackSpeed();
-            txt[2].SetText("$" + Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetAttackSpeedLevel()]);
-
+            txtCost[2].SetText("$" + Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetAttackSpeedLevel()]);
+            txtLevel[2].SetText("Level " + Configs.UpgradePlayer.upgradeLevels[SaveLoadManager.GetAttackSpeedLevel()]);
+            
         }
     } 
     
@@ -71,8 +76,8 @@ public class UpgradeManager : MonoBehaviour
         {
             SaveLoadManager.AddCoin(- Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetRangeLevel()]);
             SaveLoadManager.IncrementRange();
-            txt[3].SetText("$" + Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetRangeLevel()]);
-
+            txtCost[3].SetText("$" + Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetRangeLevel()]);
+            txtLevel[3].SetText("Level " + Configs.UpgradePlayer.upgradeLevels[SaveLoadManager.GetRangeLevel()]);
         }
     } 
 
