@@ -40,7 +40,7 @@ public class BarbarianEnemyBase : EnemyBase
     {
         return Configs.Enemy.BarbarianEnemySettings.shootInterval;
     }
-    public override float SetDamage()
+    public override float Damage()
     {
         return Configs.Enemy.BarbarianEnemySettings.damage;
          
@@ -48,6 +48,13 @@ public class BarbarianEnemyBase : EnemyBase
 
     public override void Attack()
     {
-        GetAnimator().SetTrigger("Attack");
+        PlayerMobBase pmb = GetTargetPlayer();
+        
+        if (pmb != null)
+        {
+            GetAnimator().SetTrigger("Attack");
+            pmb.HP  -= Damage();
+        }
+        
     }
 }

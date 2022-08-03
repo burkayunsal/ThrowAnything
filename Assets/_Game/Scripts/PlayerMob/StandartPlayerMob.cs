@@ -6,7 +6,7 @@ public class StandartPlayerMob : PlayerMobBase
     {
         EnemyBase e = GetTargetEnemy();
 
-        if(e != null)
+        if(e != null &&  IsAlive())
         {
             GetAnimator().SetTrigger("Throw");
             //e.HP -= Damage();

@@ -44,6 +44,7 @@ public class UpgradeManager : MonoBehaviour
             SaveLoadManager.IncrementHP();
             txtCost[0].SetText("$" + Configs.UpgradePlayer.upgradeCosts[SaveLoadManager.GetHPLevel()]);
             txtLevel[0].SetText("Level " + Configs.UpgradePlayer.upgradeLevels[SaveLoadManager.GetHPLevel()]);
+            PlayerParticleHandler.I.PlayerUpgraded();
         }
     }
 

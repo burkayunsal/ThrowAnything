@@ -39,9 +39,9 @@ public class PlayerSpawner : Singleton<PlayerSpawner>
 
     public void ReInitPlayers()
     {
-        foreach (PlayerMobBase pm in lsAllPlayers)
+        foreach (PlayerMobBase pmb in lsAllPlayers)
         {
-            pm.InitPlayer();
+            pmb.InitPlayer();
         }
     }
     

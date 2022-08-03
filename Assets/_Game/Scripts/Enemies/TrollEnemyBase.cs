@@ -40,7 +40,7 @@ public class TrollEnemyBase : EnemyBase
     {
         return Configs.Enemy.TrollEnemySettings.shootInterval;
     }
-    public override float SetDamage()
+    public override float Damage()
     {
         return Configs.Enemy.TrollEnemySettings.damage;
          
@@ -48,7 +48,13 @@ public class TrollEnemyBase : EnemyBase
 
     public override void Attack()
     {
-        GetAnimator().SetTrigger("Attack");
+        PlayerMobBase pmb = GetTargetPlayer();
+        
+        if (pmb != null)
+        {
+            pmb.HP  -= Damage();
+            GetAnimator().SetTrigger("Attack");
+        }
     }
     
     

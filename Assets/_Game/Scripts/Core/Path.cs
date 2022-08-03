@@ -14,7 +14,7 @@ public class Path : MonoBehaviour
     [Range(0,1f)]
     [SerializeField] float safeZoneAreaPer = .3f;
 
-    [Range(2,20)][SerializeField] float spawnEnemyInterval;
+    [Range(2,20)][SerializeField] public float spawnEnemyInterval;
 
     public Transform safeZoneEnterPoint, safeZoneExitPoint, respawnPoint;
 
@@ -28,10 +28,18 @@ public class Path : MonoBehaviour
     [Range(0,1f)]
     public float upgradeZoneSplinePos;
 
+    public bool useRegenerationZone;
+    [ConditionalField(nameof(useRegenerationZone),false)]
+    [Range(0,1f)]
+    public float regenerationZoneSplinePos;
+    
+    private int loopCount;
+    
     private void Start()
     {
+        loopCount = 1;
+        spawnEnemyInterval = 20f;
         respawnPoint.position = road.Interpolate(Configs.PathConfigs.respawnPoint).WithY(3f);
-
         EnemySpawner.I.CreateSpawnPool(spawnRules);
         SetSafeZone();
     }
@@ -92,7 +100,8 @@ public class Path : MonoBehaviour
 
         return angle;
     }
-
+    
+    public int GetLoopCount() => loopCount;
 
     public void PlayerInSafeZone(bool isIn)
     {
@@ -107,6 +116,13 @@ public class Path : MonoBehaviour
     public void PlayerAtRespawnPoint()
     {
         EnemySpawner.I.ClearAllEnemies();
+        
+        if (loopCount <= 6)
+        {
+            loopCount++;
+            spawnEnemyInterval -= Configs.PathConfigs.spawnEnemyIntervalDecrease;
+        }
+        
         SetEnemyPositions();
     }
 

@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
+using MyBox;
 using Packages.Rider.Editor.UnitTesting;
 using SBF.Extentions.Transforms;
 using SBF.Extentions.Vector;
@@ -12,7 +13,7 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     [SerializeField] Rigidbody rb;
     [SerializeField] Animator anim;
     [SerializeField] PlayerEnemyDetector detector;
-    
+
     public Animator GetAnimator() => anim;
 
     List<EnemyBase> lsEnemiesInZone = new List<EnemyBase>();
@@ -88,7 +89,14 @@ public abstract class PlayerMobBase : MonoBehaviour, IShooter
     void OnDeath()
     {
         PlayerController.I.RemovePlayer(this);
-        
+        anim.SetTrigger("Death");
+
+        if (PlayerController.I.lsMobs.IsNullOrEmpty())
+        {
+            PlayerController.I.StopMove();
+            TouchHandler.I.Enable(false);
+            UIManager.I.OnFail();
+        }
     }
 
     public virtual void OnEnemyEnterRange(EnemyBase e)

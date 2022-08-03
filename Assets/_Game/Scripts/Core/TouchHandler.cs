@@ -53,7 +53,6 @@ public class TouchHandler : Singleton<TouchHandler>
 
     public void OnGameStarted()
     {
-        
         Enable(true);
     }
 

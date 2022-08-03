@@ -14,6 +14,8 @@ public class EnvironmentHandler : Singleton<EnvironmentHandler>
     
     [SerializeField] SplineController upgradeZone;
 
+    [SerializeField] SplineController regenerationZone;
+
     
     public void SetRecruitZonePosition(Path currentPath)
     {
@@ -39,6 +41,20 @@ public class EnvironmentHandler : Singleton<EnvironmentHandler>
             upgradeZone.Spline = currentPath.GetRoad();
 
             upgradeZone.Position = currentPath.upgradeZoneSplinePos;
+        }
+
+    }
+    
+    public void SetRegenerationZonePosition(Path currentPath)
+    {
+        
+        regenerationZone.gameObject.SetActive(currentPath.useRegenerationZone);
+        
+        if (currentPath.useRegenerationZone)
+        {   
+            regenerationZone.Spline = currentPath.GetRoad();
+
+            regenerationZone.Position = currentPath.regenerationZoneSplinePos;
         }
 
     }

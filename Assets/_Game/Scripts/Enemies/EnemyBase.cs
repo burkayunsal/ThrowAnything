@@ -18,13 +18,14 @@ public abstract class EnemyBase : PoolObject
     public int coinAmount;
     
     public Animator GetAnimator() => anim;
-    
     public Renderer GetRenderer() => rd;
+    
     [SerializeField] EnemyPlayerDetector detector;
 
     List<PlayerMobBase> lsPlayersInTriggerZone = new List<PlayerMobBase>();
+    
     PlayerMobBase _targetPlayerMobBase;
-
+    public PlayerMobBase GetTargetPlayer() => _targetPlayerMobBase;
     //public PlayerMobBase GetTargetPlayer() => _targetPlayerMobBase;
    // [HideInInspector]
     public Color initialColor;
@@ -82,7 +83,7 @@ public abstract class EnemyBase : PoolObject
     }
 
     public bool isAlive => HP > 0;
-    
+
     private void ChangeColor(Color c)
     {
         rd.material.color = c;
@@ -134,10 +135,15 @@ public abstract class EnemyBase : PoolObject
     }
 
     bool IsAbleToFollow() => GameManager.isRunning && !PlayerController.I.isInSafeZone && canFollow && isAlive && _targetPlayerMobBase != null;
-    
+
+    private void Start()
+    {
+        shootTimer = SetShootInterval();
+    }
+
     private void Update()
     {
-       onUpdate?.Invoke();
+            onUpdate?.Invoke();
     }
 
     void FollowPlayer()
@@ -161,6 +167,8 @@ public abstract class EnemyBase : PoolObject
     {
         HandleShootingTimer();
         
+        if (_targetPlayerMobBase == null) return;
+        
         float distance = Vector3.Distance(_targetPlayerMobBase.transform.position, rb.transform.position);
             
         if (distance > 1.1f)
@@ -175,6 +183,8 @@ public abstract class EnemyBase : PoolObject
     void HandleShootingTimer()
     {
         shootTimer += Time.deltaTime;
+
+        CheckPlayerIsAvailable();
         
         if(shootTimer >= SetShootInterval())
         {
@@ -213,6 +223,29 @@ public abstract class EnemyBase : PoolObject
         }
     }
 
+    void CheckPlayerIsAvailable()
+    {
+        if(_targetPlayerMobBase != null)
+        {
+            if (!_targetPlayerMobBase.IsAlive())
+            {
+                _targetPlayerMobBase = null;
+                FindNewPlayerAround();
+            }
+        }
+    }
+    
+    void FindNewPlayerAround()
+    {
+        _targetPlayerMobBase = FindTargetPlayer();
+        if (_targetPlayerMobBase == null) StopAttack();
+    }
+
+    void StopAttack()
+    {
+        AnimState = AnimationStates.Idle;
+    }
+    
     PlayerMobBase FindTargetPlayer()
     {
         PlayerMobBase pmb = null;
@@ -264,7 +297,7 @@ public abstract class EnemyBase : PoolObject
     
     public abstract void Attack();
     public abstract float SetShootInterval();
-    public abstract float SetDamage();
+    public abstract float Damage();
 
 
 }

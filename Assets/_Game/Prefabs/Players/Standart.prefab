@@ -796,7 +796,9 @@ MonoBehaviour:
   rb: {fileID: 5877650290391478227}
   anim: {fileID: 5877650290391478225}
   detector: {fileID: 5877650289583903619}
+  upgradeParticle: {fileID: 6374991097167578732, guid: b7b44f46b52dd40708c4f0f0422de430, type: 3}
   HandPoint: {fileID: 3128894221136554886}
+  pType: 0
 --- !u!136 &2219947971838432348
 CapsuleCollider:
   m_ObjectHideFlags: 0

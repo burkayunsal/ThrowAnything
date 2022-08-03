@@ -8,7 +8,7 @@ using FluffyUnderware.Curvy;
 
 public class PlayerController : Singleton<PlayerController>
 {
-    List<PlayerMobBase> lsMobs = new List<PlayerMobBase>();
+    public List<PlayerMobBase> lsMobs = new List<PlayerMobBase>();
 
     public bool isInSafeZone = true;
     
@@ -64,7 +64,10 @@ public class PlayerController : Singleton<PlayerController>
 
         for (int i = 0; i < charArr.Length; i++)
         {
-            PlayerSpawner.I.SpawnPlayerMob(charArr[i]);
+            if (charArr[i] >= 0)
+            {
+                PlayerSpawner.I.SpawnPlayerMob(charArr[i]);
+            }
         }
     }
 
@@ -96,6 +99,7 @@ public class PlayerController : Singleton<PlayerController>
         CameraController.I.Init();
         EnvironmentHandler.I.SetRecruitZonePosition(crntRoad);
         EnvironmentHandler.I.SetUpgradeZonePosition(crntRoad);
+        EnvironmentHandler.I.SetRegenerationZonePosition(crntRoad);
     }
  
 
@@ -130,8 +134,11 @@ public class PlayerController : Singleton<PlayerController>
         lsMobs.Remove(pmb);
         onAnimChanged -= pmb.ChangeAnimationState;
         pmb.transform.SetParent(null);
+        pmb.gameObject.SetActive(false);
+        
         RemoveFromSavedList((int)pmb.pType);
-        RepositionMobs();
+        new SBF.Toolkit.DelayedAction(() => RepositionMobs(), 1f).Execute(this);
+
     }
 
     void RepositionMobs()

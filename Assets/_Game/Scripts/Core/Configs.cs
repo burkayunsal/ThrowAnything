@@ -9,7 +9,7 @@
         public static class StandartMobSettings
         {
             public static float detectorRange = 15f;
-            public static float maxHP = 80f;
+            public static float maxHP = 100f;
             public static float damage = 10f;
             public static float shootInterval = 1.2f;
         }
@@ -26,6 +26,7 @@
     public static class PathConfigs
     {
         public const float respawnPoint = .9f;
+        public static float spawnEnemyIntervalDecrease = 3f;
     }
 
 
@@ -34,7 +35,7 @@
         public static class BarbarianEnemySettings
         {
             public static float range = 20f;
-            public static float damage = 10f;
+            public static float damage = 25f;
             public static float shootInterval = 1.2f;
             public static float maxHP = 50f;
         }
@@ -42,7 +43,7 @@
         public static class TrollEnemySettings
         {
             public static float range = 10f;
-            public static float damage = 15f;
+            public static float damage = 59f;
             public static float shootInterval = 3f;
             public static float maxHP = 100f;
 

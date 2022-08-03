@@ -57,7 +57,9 @@ public class SaveLoadManager : MonoBehaviour
     public static void IncrementAttackSpeed()
     {
         PlayerPrefs.SetInt(KEY_AS, GetAttackSpeedLevel() + 1);
-        PlayerSpawner.I.ReInitPlayers();    }
+        PlayerSpawner.I.ReInitPlayers();
+        
+    }
     
     public static int GetAttackSpeedLevel() => PlayerPrefs.GetInt(KEY_AS, 0);
 
@@ -70,7 +72,9 @@ public class SaveLoadManager : MonoBehaviour
     public static void IncrementDamage()
     {
         PlayerPrefs.SetInt(KEY_DMG, GetDamageLevel() + 1);
-        PlayerSpawner.I.ReInitPlayers();    }
+        PlayerSpawner.I.ReInitPlayers();
+        
+    }
     
     public static int GetDamageLevel() => PlayerPrefs.GetInt(KEY_DMG, 0);
 
@@ -125,7 +129,11 @@ public class SaveLoadManager : MonoBehaviour
         int[] chars = new int[strs.Length];
         for (int i = 0; i < strs.Length; i++)
         {
-            chars[i] = int.Parse(strs[i]);
+            if(int.TryParse(strs[i], out int num))
+                chars[i] = num;
+            else
+                chars[i] = -1;
+            //chars[i] = int.Parse(strs[i]);
         }
         return chars;
     }
