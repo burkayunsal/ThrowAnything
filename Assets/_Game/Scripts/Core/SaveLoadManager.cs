@@ -27,7 +27,7 @@ public class SaveLoadManager : MonoBehaviour
 
     #endregion
 
-    #region COIN
+    #region VIBRATION
 
     const string KEY_VIBRATION = "vibrator";
 
@@ -58,7 +58,6 @@ public class SaveLoadManager : MonoBehaviour
     {
         PlayerPrefs.SetInt(KEY_AS, GetAttackSpeedLevel() + 1);
         PlayerSpawner.I.ReInitPlayers();
-        
     }
     
     public static int GetAttackSpeedLevel() => PlayerPrefs.GetInt(KEY_AS, 0);

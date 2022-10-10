@@ -40,7 +40,7 @@ public class BarbarianEnemyBase : EnemyBase
     {
         return Configs.Enemy.BarbarianEnemySettings.shootInterval;
     }
-    public override float Damage()
+    public override float Damage() 
     {
         return Configs.Enemy.BarbarianEnemySettings.damage;
          

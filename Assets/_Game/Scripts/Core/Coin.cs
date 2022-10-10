@@ -11,7 +11,8 @@ public class Coin : MonoBehaviour
       transform.DOJump(transform.position + coinJumpPosition,3f,1,.3f).SetEase(Ease.Linear).OnComplete(() =>
       {
           transform.parent = GameObject.FindWithTag("PlayerParent").transform;
-          transform.DOLocalMove(new Vector3(0,.5f,0),.3f).SetDelay(.05f).SetEase(Ease.Linear).OnComplete(() =>
+          
+          transform.DOLocalMove(new Vector3(0,.5f,0),.3f).SetDelay(.05f).SetEase(Ease.InBounce).OnComplete(() =>
           {
               Destroy(gameObject);
               SaveLoadManager.AddCoin(1);
